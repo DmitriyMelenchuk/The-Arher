@@ -9,12 +9,7 @@ public class PlayerInput : MonoBehaviour
 
     public event Action ShotStarting;
     public event Action ShotEnded;
-
-    private void Awake()
-    {
-        _playerInput = new PlayerAction();
-    }
-
+   
     private void OnEnable()
     {
         _playerInput.Enable();
@@ -30,6 +25,12 @@ public class PlayerInput : MonoBehaviour
     {
         _playerInput.Disable();
     }
+
+    public void Init()
+    {
+        _playerInput = new PlayerAction();
+    }
+
     private void OnStartShooting()
     {
         ShotStarting?.Invoke();

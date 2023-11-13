@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 
 public class EnemyShoting : MonoBehaviour
 {
     [SerializeField] private Transform _shotingTransform;
-    [SerializeField] private EnemyWeapon _weapon;
+    [SerializeField] private EnemyBow _weapon;
     [SerializeField] private EnemyHand _enemyHand;
     [SerializeField] private float _timeToShot = 2;
 

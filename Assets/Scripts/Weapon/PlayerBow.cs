@@ -1,13 +1,12 @@
 using UnityEngine;
 
-public class EnemyWeapon : MonoBehaviour
+public class PlayerBow : MonoBehaviour, IWeapon
 {
-    [SerializeField] private PlayerShoting _player;
     [SerializeField] private ArrowSpawner _arrowSpawner;
 
     public void Shot(float forceShot)
     {
         Arrow arrow = _arrowSpawner.CreateArrow();
-        arrow.Move(transform.forward, forceShot);
+        arrow.Move(transform.right, forceShot);
     }
 }

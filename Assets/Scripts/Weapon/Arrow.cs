@@ -5,6 +5,8 @@ public class Arrow : MonoBehaviour
 {
     private Rigidbody _rigidbody;
 
+    private int _damage;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -28,6 +30,9 @@ public class Arrow : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.gameObject.TryGetComponent(out IDamageable damageable))
+        {
+            damageable.TakeDamage(_damage);
+        }        
     }
 }

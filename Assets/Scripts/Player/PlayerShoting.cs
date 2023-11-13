@@ -4,9 +4,9 @@ public class PlayerShoting : MonoBehaviour
 {
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private ShotingTrajectory _shotingTrajectory;
-    //[SerializeField] private PlayerHand _playerHand;
+    [SerializeField] private PlayerHand _playerHand;
     [SerializeField] private Transform _shotingTransform;
-    [SerializeField] private Weapon _weapon;
+    [SerializeField] private PlayerBow _weapon;
 
     private float _forceShot;
     private float _maxForceShot = 15f;
@@ -25,10 +25,14 @@ public class PlayerShoting : MonoBehaviour
             if (_forceShot <= _maxForceShot)
                 _forceShot += _maxForceShot * Time.deltaTime;
 
-            //_playerHand.Rotate(_playerHand.transform, _playerInput.MousePosition);
-            _weapon.Rotate(_weapon.transform, _playerInput.MousePosition);
+            _playerHand.Rotate(_playerHand.transform, _playerInput.MousePosition);
             DrawTrajectory();
         }
+    }
+
+    public void Init(PlayerInput playerInput)
+    {
+        _playerInput = playerInput;
     }
 
     private void DrawTrajectory()
