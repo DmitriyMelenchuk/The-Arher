@@ -7,7 +7,7 @@ public class EnemyBow : MonoBehaviour, IWeapon
 
     public void Shot(float forceShot)
     {
-        Arrow arrow = _arrowSpawner.CreateArrow();
+        Arrow arrow = _arrowSpawner.Create();
         arrow.Move(transform.forward, forceShot);
     }
 }

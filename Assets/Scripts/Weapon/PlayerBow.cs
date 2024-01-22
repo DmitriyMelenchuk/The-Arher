@@ -6,7 +6,10 @@ public class PlayerBow : MonoBehaviour, IWeapon
 
     public void Shot(float forceShot)
     {
-        Arrow arrow = _arrowSpawner.CreateArrow();
-        arrow.Move(transform.right, forceShot);
+        if (Time.timeScale != 0)
+        {
+            Arrow arrow = _arrowSpawner.Create();
+            arrow.Move(transform.right, forceShot);
+        }
     }
 }

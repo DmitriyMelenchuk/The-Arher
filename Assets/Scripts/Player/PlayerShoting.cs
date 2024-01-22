@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class PlayerShoting : MonoBehaviour
 {
-    [SerializeField] private PlayerInput _playerInput;
+    private const string IsShot = nameof(IsShot);
+    private const string SpeedAnimation = nameof(SpeedAnimation);
+
     [SerializeField] private ShotingTrajectory _shotingTrajectory;
-    [SerializeField] private PlayerHand _playerHand;
     [SerializeField] private Transform _shotingTransform;
     [SerializeField] private PlayerBow _weapon;
 
-    private float _forceShot;
+    private Animator _animator;
+    private PlayerInput _playerInput;
+    private float _minForceShot = 5f;
     private float _maxForceShot = 15f;
-    private bool _isStartShoting;
+    private float _forceShot;
+
+    public bool IsStartShoting { get; private set; }
 
     private void OnEnable()
     {
@@ -18,16 +23,27 @@ public class PlayerShoting : MonoBehaviour
         _playerInput.ShotEnded += OnShotEnded;
     }
 
+    private void Awake()
+    {
+        _playerInput = GetComponent<PlayerInput>();
+        _animator = GetComponent<Animator>();
+    }
+
     private void Update()
     {
-        if (_isStartShoting == true)
-        {
+        if (IsStartShoting == true)
+        {           
             if (_forceShot <= _maxForceShot)
                 _forceShot += _maxForceShot * Time.deltaTime;
 
-            _playerHand.Rotate(_playerHand.transform, _playerInput.MousePosition);
             DrawTrajectory();
         }
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.ShotStarting -= OnShotStarting;
+        _playerInput.ShotEnded -= OnShotEnded;
     }
 
     public void Init(PlayerInput playerInput)
@@ -43,14 +59,16 @@ public class PlayerShoting : MonoBehaviour
 
     private void OnShotStarting()
     {
-        _isStartShoting = true;
+        IsStartShoting = true;
+        _animator.SetBool(IsShot, true);       
     }
 
     private void OnShotEnded()
     {
+        _animator.SetBool(IsShot, false);
         _weapon.Shot(_forceShot);
-        _isStartShoting = false;
+        IsStartShoting = false;
         _shotingTrajectory.Deactivated();
-        _forceShot = 0;
+        _forceShot = _minForceShot;
     }   
 }

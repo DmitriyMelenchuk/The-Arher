@@ -1,41 +1,39 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : Creature
 {
-    [SerializeField] private PlayerShoting _playerShoting;
-    [SerializeField] private PlayerInput _playerInput;
-    [SerializeField] private PlayerHand _playerHand;
-    [SerializeField] private int _healthValue;
-    [SerializeField] private int _damageValue;
+    private PlayerShoting _playerShoting;
+    private PlayerInput _playerInput;
+    private PlayerHand _playerHand;
 
-    private Enemy _enemy;
-    private Health _health;
-
-    public int DamageValue => _damageValue;
-
-    private void OnEnable()
+    private void Update()
     {
-        _health.Die += OnDie;
+        if (_playerShoting.IsStartShoting == true)
+        {
+            _playerHand.Rotate(_playerHand.transform, _playerInput.MousePosition);
+        }  
     }
 
-    private void OnDisable()
+    public void Init(PlayerInput playerInput, PlayerHand playerHand, PlayerShoting playerShoting)
     {
-        _health.Die -= OnDie;
+        _playerInput = playerInput;
+        _playerShoting = playerShoting;
+        _playerHand = playerHand;
     }
 
-    public void Init(Enemy enemy)
-    {
-        _health = new Health(_healthValue);
-        _enemy = enemy;
-    }
-
-    public void TakeDamage(int damage)
-    {
-        _health.TakeDamage(damage + _enemy.DamageValue);
-    }
-
-    private void OnDie()
+    protected override void OnDie()
     {
         gameObject.SetActive(false);
+    }
+
+    protected override void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Arrow arrow))
+        {
+            if (arrow.transform.root.TryGetComponent(out Enemy enemy))                                                                        
+            {
+                TakeDamage(enemy.Damage);
+            }
+        }
     }
 }

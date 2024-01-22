@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ArrowSpawner : MonoBehaviour
@@ -13,9 +14,10 @@ public class ArrowSpawner : MonoBehaviour
         _pool = new ObjectPool<Arrow>(_prefab, _container, _capacity);
     }
 
-    public Arrow CreateArrow()
+    public Arrow Create()
     {
-        var arrow = _pool.GetObject();
+        Arrow arrow = _pool.GetObject();
+        arrow.transform.position = transform.position;
         return arrow;
     }
 }

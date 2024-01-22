@@ -15,8 +15,9 @@ public class PlayerInput : MonoBehaviour
         _playerInput.Enable();
     }
 
-    private void Start()
+    private void Awake()
     {
+        _playerInput = new PlayerAction();
         _playerInput.Player.Shoot.performed += ctx => OnStartShooting();
         _playerInput.Player.Shoot.canceled += ctx => OnShootEnded();
     }

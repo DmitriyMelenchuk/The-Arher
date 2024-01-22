@@ -4,9 +4,13 @@ public class EntryPoint : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private Enemy _enemy;
+    [SerializeField] private EnemyShoting _enemyShoting;
     [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private PlayerShoting _playerShoting;
     [SerializeField] private PlayerHand _playerHand;
+    [SerializeField] private ObstacleSpawner _obstacleStaticSpawner;
+    [SerializeField] private ObstacleSpawner _obstacleMovingSpawner;
+
 
     private void Awake()
     {
@@ -15,8 +19,11 @@ public class EntryPoint : MonoBehaviour
 
     private void Initialize()
     {
-        _player.Init(_enemy);
-        _playerInput.Init();
-        _enemy.Init(_player);
+        _player.Init(_playerInput, _playerHand, _playerShoting);
+        //_playerInput.Init();
+        //_playerShoting.Init(_playerInput);
+        _enemy.Init(_enemyShoting);
+        _obstacleStaticSpawner.Init();
+        _obstacleMovingSpawner.Init();
     }
 }
