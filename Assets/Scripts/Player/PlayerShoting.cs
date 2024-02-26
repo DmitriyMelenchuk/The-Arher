@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerShoting : MonoBehaviour
 {
     private const string IsShot = nameof(IsShot);
-    private const string SpeedAnimation = nameof(SpeedAnimation);
 
     [SerializeField] private ShotingTrajectory _shotingTrajectory;
     [SerializeField] private Transform _shotingTransform;
@@ -46,11 +45,6 @@ public class PlayerShoting : MonoBehaviour
         _playerInput.ShotEnded -= OnShotEnded;
     }
 
-    public void Init(PlayerInput playerInput)
-    {
-        _playerInput = playerInput;
-    }
-
     private void DrawTrajectory()
     {
         _shotingTrajectory.Activated();
@@ -60,6 +54,7 @@ public class PlayerShoting : MonoBehaviour
     private void OnShotStarting()
     {
         IsStartShoting = true;
+        _weapon.CreateArrow();
         _animator.SetBool(IsShot, true);       
     }
 

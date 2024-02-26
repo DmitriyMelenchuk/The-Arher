@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -8,29 +9,47 @@ public class EnemyShoting : MonoBehaviour
     [SerializeField] private Transform _shotingTransform;
     [SerializeField] private EnemyBow _weapon;
     [SerializeField] private EnemyHand _enemyHand;
-    [SerializeField] private float _timeToShot = 2;
+    [SerializeField] private float _timeBeforeShot;
 
     private Animator _animator;
     private float _forceShot = 15;
-    private float _runningTime;
+    private float _runnigTime;
 
+    private void OnEnable()
+    {
+        _enemyHand.EndedRotation += OnEndedRotation;
+    }
+ 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
     }
 
-    public void Shoot()
+    private void Update()
     {
-        _runningTime += Time.deltaTime;
-        _enemyHand.Rotate();
-        _animator.SetBool(IsShot, false);
+        Shot();
+    }
 
-        if (_runningTime >= _timeToShot)
+    private void OnDisable()
+    {
+        _enemyHand.EndedRotation -= OnEndedRotation;
+    }
+
+    public void Shot()
+    {
+        _runnigTime += Time.deltaTime;
+
+        if (_runnigTime >= _timeBeforeShot)
         {
+            _weapon.CreateArrow();
             _animator.SetBool(IsShot, true);
-            _enemyHand.SetRandomPositionY();
-            _weapon.Shot(_forceShot);
-            _runningTime = 0;
+            _enemyHand.Rotate();
+            _runnigTime = 0;
         }
+    }
+
+    private void OnEndedRotation()
+    {
+        _weapon.Shot(_forceShot);
     }
 }

@@ -27,8 +27,7 @@ public abstract class Bar : MonoBehaviour
 
     protected virtual void OnTakedDamage()
     {
-        //Slider.value = _creature.CurrentHealth;
-        Slider.value = _iDamageable.Health; //+
+        Slider.value = _iDamageable.Health; 
     }
 
     protected abstract Vector3 GetPosition();

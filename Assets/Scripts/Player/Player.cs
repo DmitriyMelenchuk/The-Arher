@@ -10,7 +10,7 @@ public class Player : Creature
     {
         if (_playerShoting.IsStartShoting == true)
         {
-            _playerHand.Rotate(_playerHand.transform, _playerInput.MousePosition);
+            _playerHand.Rotate(_playerInput.MousePosition);
         }  
     }
 

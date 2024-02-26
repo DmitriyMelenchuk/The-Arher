@@ -2,14 +2,9 @@ using System.Collections;
 using UnityEngine;
 
 public class Enemy : Creature
-{
-    private EnemyShoting _enemyShoting;
+{    
     private float _betweenDie = 2;
 
-    private void Update()
-    {
-        _enemyShoting.Shoot();
-    }
 
     protected override void OnCollisionEnter(Collision collision)
     {
@@ -24,7 +19,6 @@ public class Enemy : Creature
 
     public void Init(EnemyShoting enemyShoting)
     {
-        _enemyShoting = enemyShoting;
         Rigidbody.isKinematic = true;
     }
 

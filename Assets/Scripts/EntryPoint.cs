@@ -20,8 +20,6 @@ public class EntryPoint : MonoBehaviour
     private void Initialize()
     {
         _player.Init(_playerInput, _playerHand, _playerShoting);
-        //_playerInput.Init();
-        //_playerShoting.Init(_playerInput);
         _enemy.Init(_enemyShoting);
         _obstacleStaticSpawner.Init();
         _obstacleMovingSpawner.Init();

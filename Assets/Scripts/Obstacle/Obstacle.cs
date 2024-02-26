@@ -14,42 +14,19 @@ public abstract class Obstacle : MonoBehaviour, IDamageable
 
     public int Health => _health;
 
-    //protected IMovable _movable;
-    //protected IDamageable _damageable;
-
-    //public event Action Dieing;
-    //public event Action Died;
-    //public event Action ChangedHealth;
-    //public event Action<int> ApplyedDamage;
-
     private void Start()
     {
         Move();
         _startHealth = _health;
-        //InitPatterns();
-        //_movable.Move();
-    }
-
-    private void OnEnable()
-    {
-        //_damageable.ApplyedDamage += OnApplayedDamage;
-        //_damageable.Died += OnDied;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent(out Arrow arrow))
         {
-            int damage = arrow.gameObject.transform.root.GetComponent<Creature>().Damage;
-            TakeDamage(damage);
-            //_damageable.TakeDamage(damage);
+            int damage = arrow.Creature.Damage;
+            TakeDamage(damage); 
         }
-    }
-
-    private void OnDisable()
-    {
-        //_damageable.ApplyedDamage -= OnApplayedDamage;
-        //_damageable.Died -= OnDied;
     }
 
     public void Reset()
@@ -71,5 +48,4 @@ public abstract class Obstacle : MonoBehaviour, IDamageable
             Died?.Invoke();
         }
     }
-    //protected abstract void InitPatterns();
 }
