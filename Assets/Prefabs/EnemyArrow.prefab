@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 4077381799946466343}
   - component: {fileID: 7448584361769730974}
   - component: {fileID: 5301943075709099940}
+  - component: {fileID: 2507043346433688997}
   m_Layer: 0
-  m_Name: Arrow
+  m_Name: EnemyArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,6 +109,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cc7de937fbfc2a42b5cea9b8aea9554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2507043346433688997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511596873774556162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b65dd097fc698c47ac9ace2336f8374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 2
 --- !u!1001 &2840981650121427300
 PrefabInstance:
   m_ObjectHideFlags: 0

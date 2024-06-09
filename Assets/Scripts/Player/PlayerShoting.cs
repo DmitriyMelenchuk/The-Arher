@@ -1,11 +1,10 @@
+using System;
 using UnityEngine;
 
 public class PlayerShoting : MonoBehaviour
 {
     private const string IsShot = nameof(IsShot);
 
-    [SerializeField] private ShotingTrajectory _shotingTrajectory;
-    [SerializeField] private Transform _shotingTransform;
     [SerializeField] private PlayerBow _weapon;
 
     private Animator _animator;
@@ -16,16 +15,19 @@ public class PlayerShoting : MonoBehaviour
 
     public bool IsStartShoting { get; private set; }
 
-    private void OnEnable()
-    {
-        _playerInput.ShotStarting += OnShotStarting;
-        _playerInput.ShotEnded += OnShotEnded;
-    }
+    public event Action<float> ChangedForceShot;
+    public event Action EndedShooting;
 
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
         _animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        _playerInput.ShotStarting += OnShotStarting;
+        _playerInput.ShotEnded += OnShotEnded;
     }
 
     private void Update()
@@ -34,8 +36,7 @@ public class PlayerShoting : MonoBehaviour
         {           
             if (_forceShot <= _maxForceShot)
                 _forceShot += _maxForceShot * Time.deltaTime;
-
-            DrawTrajectory();
+            ChangedForceShot?.Invoke(_forceShot);
         }
     }
 
@@ -43,12 +44,6 @@ public class PlayerShoting : MonoBehaviour
     {
         _playerInput.ShotStarting -= OnShotStarting;
         _playerInput.ShotEnded -= OnShotEnded;
-    }
-
-    private void DrawTrajectory()
-    {
-        _shotingTrajectory.Activated();
-        _shotingTrajectory.Draw(_weapon.transform.position, _weapon.transform.right * _forceShot);
     }
 
     private void OnShotStarting()
@@ -63,7 +58,8 @@ public class PlayerShoting : MonoBehaviour
         _animator.SetBool(IsShot, false);
         _weapon.Shot(_forceShot);
         IsStartShoting = false;
-        _shotingTrajectory.Deactivated();
         _forceShot = _minForceShot;
+        ChangedForceShot?.Invoke(_forceShot);
+        EndedShooting?.Invoke();
     }   
 }

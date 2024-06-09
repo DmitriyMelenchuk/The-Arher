@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class ShotingTrajectory : MonoBehaviour
+public class RenderTrajectory : MonoBehaviour
 {
     [SerializeField] private int _countPoint;
 

@@ -17,7 +17,6 @@ public class ArrowSpawner : MonoBehaviour
     public Arrow Create()
     {
         Arrow arrow = _pool.GetObject();
-        arrow.transform.position = transform.position;
         return arrow;
     }
 }

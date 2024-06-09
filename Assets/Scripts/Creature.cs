@@ -10,7 +10,7 @@ public abstract class Creature : MonoBehaviour, IDamageable
     private int _startHealth;
 
     public int Damage => _damage;
-    public int Health => _health; // +
+    public int Health => _health; 
     protected Rigidbody Rigidbody => GetComponent<Rigidbody>();
 
     public event Action Died;
@@ -52,6 +52,4 @@ public abstract class Creature : MonoBehaviour, IDamageable
     }
 
     protected abstract void OnDie();
-
-    protected abstract void OnCollisionEnter(Collision collision);
 }

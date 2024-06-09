@@ -17,7 +17,7 @@ public class DamageTextSpawner : MonoBehaviour
     public void Create(Vector3 position, int value)
     {
         var text = _pool.GetObject();
-        text.text = value.ToString();
+        text.text = "-" + value.ToString();
         text.rectTransform.position = position;
     }
 }

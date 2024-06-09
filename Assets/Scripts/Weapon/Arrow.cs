@@ -1,6 +1,5 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
+
 
 [RequireComponent(typeof(Rigidbody))]
 public class Arrow : MonoBehaviour
@@ -9,7 +8,6 @@ public class Arrow : MonoBehaviour
     private Transform _startParent;
 
     public bool _isFlight { get; private set; }
-    public Creature Creature { get; private set; }
 
     private void Awake()
     {
@@ -25,11 +23,8 @@ public class Arrow : MonoBehaviour
 
     private void Update()
     {
-        if (_isFlight == true)
-        {
-            gameObject.transform.SetParent(_startParent);
-            Rotate();
-        }   
+        if (_isFlight == true)          
+            Rotate();  
     }
 
     public void Move(Vector3 velocity, float force)
@@ -39,19 +34,21 @@ public class Arrow : MonoBehaviour
         _rigidbody.velocity = velocity * force;
     }
 
-    public void SetToHand(Transform handTransform)
+    public void SetToHand(Transform target)
     {
-        gameObject.transform.SetParent(handTransform);     
-        transform.localRotation = Quaternion.Euler(0,0, handTransform.rotation.z);
+        gameObject.transform.SetParent(target);
+        transform.position = target.transform.position;
     }
 
-    public void InitializeCreature(Creature creature)
+    public void RotateTo(float value)
     {
-        Creature = creature;
+        if (_isFlight == false)
+            transform.localRotation = Quaternion.Euler(0, 0, value);
     }
 
     private void Rotate()
     {
+        gameObject.transform.SetParent(_startParent);
         float angle = Mathf.Atan2(_rigidbody.velocity.y, _rigidbody.velocity.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }

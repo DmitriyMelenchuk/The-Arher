@@ -1,65 +1,65 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class EnemyHand : MonoBehaviour
 {
-    [SerializeField] private PlayerShoting _target;
+    [SerializeField] private Transform _leftHand;
     [SerializeField] private float _speedRotation;
 
-    private float _timeRotation = 0.5f;
+    private float _timeRotation = 1f;
     private float _runnigTime;
+    private float _rotationTime;
 
-    private int _minRotation = 3;
-    private int _maxRotation = 15;
+    private float _minRotation = -1;/*-16f;*/
+    private float _maxRotation = 20;/*35f;*/
 
-    public event UnityAction EndedRotation;
+    public event Action StartingRotation;
+    public event Action<float> EndedRotation;
+
+    private void Update()
+    {
+        transform.position = _leftHand.position;
+        Rotate();
+    }
 
     public float GetRandomPositionY()
     {
-        return Random.Range(_minRotation, _maxRotation);
+        float value = Random.Range(_minRotation, _maxRotation);
+        return value;
     }
 
     public void Rotate()
     {
-        StartCoroutine(DelayRotation());
-        _runnigTime = 0;
+        _runnigTime += Time.deltaTime;
+
+        if (_runnigTime >= 3)
+        {
+            StartCoroutine(DelayRotation());
+            _runnigTime = 0;
+        }
     }
 
     private IEnumerator DelayRotation()
     {
-        float positionY = _target.transform.position.y + GetRandomPositionY();
-        Vector3 direction = new Vector3(_target.transform.position.x, positionY, _target.transform.position.z) - transform.position;
+        Vector3 targetPosition = new Vector3(0, GetRandomPositionY(), 0);
+        
+        Vector3 direction = targetPosition - transform.position;
+        
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        StartingRotation?.Invoke();
 
-        while (_timeRotation >= _runnigTime)
-        {            
-            Quaternion rotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _speedRotation * Time.deltaTime);
-            _runnigTime += Time.deltaTime;
+        while (_rotationTime <= _timeRotation)
+        {
+            _rotationTime += Time.deltaTime;
+            transform.rotation = Quaternion.RotateTowards(
+            Quaternion.Euler(new Vector3(transform.eulerAngles.x, 0f, 0f)),
+            Quaternion.Euler(new Vector3(targetRotation.x * _speedRotation, 0f, 0f)), _maxRotation);
             yield return null;
         }
-
-        EndedRotation?.Invoke();
+        Debug.Log(targetPosition.y);
+        EndedRotation?.Invoke(targetPosition.y);
+        _rotationTime = 0;
     }
-
-
-    //public void Rotate()
-    //{
-    //    StartCoroutine(StartRotation(_target.transform.rotation));
-    //}
-
-    //private IEnumerator StartRotation(Quaternion quaternion)
-    //{
-    //    float targetPositionY = quaternion.eulerAngles.y + Random.Range(_minRotation, _maxRotation); 
-
-    //    Vector3 direction = new Vector3(quaternion.x, quaternion.y + targetPositionY, quaternion.z) -
-    //        transform.rotation.eulerAngles;
-
-    //    while (transform.rotation.eulerAngles != direction)
-    //    {
-    //        Quaternion rotation = Quaternion.LookRotation(direction);
-    //        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _speedRotation /** Time.deltaTime*/);
-    //        yield return null;
-    //    }
-    //}
 }

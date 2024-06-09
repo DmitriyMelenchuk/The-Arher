@@ -20,15 +20,6 @@ public abstract class Obstacle : MonoBehaviour, IDamageable
         _startHealth = _health;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent(out Arrow arrow))
-        {
-            int damage = arrow.Creature.Damage;
-            TakeDamage(damage); 
-        }
-    }
-
     public void Reset()
     {
         _health = _startHealth;
