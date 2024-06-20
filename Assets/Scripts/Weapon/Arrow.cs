@@ -7,6 +7,8 @@ public class Arrow : MonoBehaviour
     private Rigidbody _rigidbody;
     private Transform _startParent;
 
+    public int Damage { get; private set; }
+
     public bool _isFlight { get; private set; }
 
     private void Awake()
@@ -23,6 +25,9 @@ public class Arrow : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            gameObject.SetActive(false);
+
         if (_isFlight == true)          
             Rotate();  
     }
@@ -38,6 +43,11 @@ public class Arrow : MonoBehaviour
     {
         gameObject.transform.SetParent(target);
         transform.position = target.transform.position;
+    }
+
+    public void InitDamage(int damage)
+    {
+        Damage = damage;
     }
 
     public void RotateTo(float value)

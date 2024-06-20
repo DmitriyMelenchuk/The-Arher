@@ -2,7 +2,9 @@ using UnityEngine;
 
 public abstract class Screen : MonoBehaviour
 {
-    [SerializeField] protected CanvasGroup CanvasGroup;
+    [SerializeField] private CanvasGroup _canvasGroup;
+
+    public CanvasGroup CanvasGroup => _canvasGroup;
 
     private void OnEnable()
     {
@@ -14,9 +16,9 @@ public abstract class Screen : MonoBehaviour
         Disable();
     }
 
-    protected abstract void Enable();
-    protected abstract void Disable();
-
     public abstract void Open();
     public abstract void Close();
+
+    protected abstract void Enable();
+    protected abstract void Disable();
 }

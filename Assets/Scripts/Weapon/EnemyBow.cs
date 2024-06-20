@@ -5,6 +5,7 @@ public class EnemyBow : MonoBehaviour, IWeapon
     [SerializeField] private ArrowSpawner _arrowSpawner;
     [SerializeField] private EnemyHand _enemyHand;
     [SerializeField] private Transform target;
+    [SerializeField] private int _damage;
 
     private Arrow _currentArrow;
     private float _angleRotateArrow = 180;
@@ -30,10 +31,14 @@ public class EnemyBow : MonoBehaviour, IWeapon
 
     public void CreateArrow()
     {
+        if (_currentArrow != null)
+            _currentArrow.gameObject.SetActive(false);
+
         if (Time.timeScale != 0)
         {
             _currentArrow = _arrowSpawner.Create();
             _currentArrow.SetToHand(transform);
+            _currentArrow.InitDamage(_damage);
         }
     }
 

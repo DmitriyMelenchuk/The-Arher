@@ -34,7 +34,7 @@ public class PlayerInput : MonoBehaviour
 
     private void OnStartShooting()
     {
-        ShotStarting?.Invoke();
+        ShotStarting?.Invoke();     
     }
 
     private void OnShootEnded()

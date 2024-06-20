@@ -32,6 +32,9 @@ public class PlayerShoting : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+
         if (IsStartShoting == true)
         {           
             if (_forceShot <= _maxForceShot)

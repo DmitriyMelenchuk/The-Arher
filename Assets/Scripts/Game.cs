@@ -30,13 +30,15 @@ public class Game : MonoBehaviour
     private void OnPauseButtonClick()
     {
         _pauseScreen.Open();
-        Time.timeScale = 0;
+        Time.timeScale = 0;       
     }
 
     private void OnRestartButtonClick()
     {
         _player.Reset();
         _enemy.Reset();
+        _pauseScreen.Close();
+        Time.timeScale = 1;
     }
 
     private void OnPlayButtonClick()

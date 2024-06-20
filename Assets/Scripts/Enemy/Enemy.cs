@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 public class Enemy : Creature
-{    
+{
     private float _betweenDie = 2;
 
     private void Awake()
@@ -12,7 +12,7 @@ public class Enemy : Creature
 
     protected override void OnDie()
     {
-        StartCoroutine(ApplyForced());
+        StartCoroutine(ApplyForced());    
     }
 
     private IEnumerator ApplyForced()

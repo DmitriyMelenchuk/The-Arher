@@ -5,11 +5,9 @@ using UnityEngine;
 public abstract class Creature : MonoBehaviour, IDamageable
 {
     [SerializeField] private int _health;
-    [SerializeField] private int _damage;
 
-    private int _startHealth;
+    private int _maxHealth;
 
-    public int Damage => _damage;
     public int Health => _health; 
     protected Rigidbody Rigidbody => GetComponent<Rigidbody>();
 
@@ -24,7 +22,7 @@ public abstract class Creature : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        _startHealth = _health;
+        _maxHealth = _health;
     }
 
     private void OnDisable()
@@ -47,8 +45,21 @@ public abstract class Creature : MonoBehaviour, IDamageable
 
     public void Reset()
     {
-        _health = _startHealth;
+        _health = _maxHealth;
         ChangedHealth?.Invoke();
+    }
+
+    public void AddHealth(int value)
+    {
+        if (value > 0)
+        {
+            if (_health + value <= _maxHealth)
+                _health += value;
+            else
+                _health = _maxHealth;
+
+            ChangedHealth?.Invoke();
+        } 
     }
 
     protected abstract void OnDie();

@@ -9,11 +9,11 @@ public class EnemyHand : MonoBehaviour
     [SerializeField] private float _speedRotation;
 
     private float _timeRotation = 1f;
-    private float _runnigTime;
     private float _rotationTime;
 
-    private float _minRotation = -1;/*-16f;*/
-    private float _maxRotation = 20;/*35f;*/
+    private float _minRotation = -1;
+    private float _maxRotation = 20;
+
 
     public event Action StartingRotation;
     public event Action<float> EndedRotation;
@@ -21,7 +21,6 @@ public class EnemyHand : MonoBehaviour
     private void Update()
     {
         transform.position = _leftHand.position;
-        Rotate();
     }
 
     public float GetRandomPositionY()
@@ -32,21 +31,13 @@ public class EnemyHand : MonoBehaviour
 
     public void Rotate()
     {
-        _runnigTime += Time.deltaTime;
-
-        if (_runnigTime >= 3)
-        {
-            StartCoroutine(DelayRotation());
-            _runnigTime = 0;
-        }
+        StartCoroutine(DelayRotation());
     }
 
     private IEnumerator DelayRotation()
     {
         Vector3 targetPosition = new Vector3(0, GetRandomPositionY(), 0);
-        
         Vector3 direction = targetPosition - transform.position;
-        
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         StartingRotation?.Invoke();
 
@@ -58,7 +49,7 @@ public class EnemyHand : MonoBehaviour
             Quaternion.Euler(new Vector3(targetRotation.x * _speedRotation, 0f, 0f)), _maxRotation);
             yield return null;
         }
-        Debug.Log(targetPosition.y);
+
         EndedRotation?.Invoke(targetPosition.y);
         _rotationTime = 0;
     }

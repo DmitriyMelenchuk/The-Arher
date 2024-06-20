@@ -1,27 +1,56 @@
 using UnityEngine;
 
-public abstract class ArrowDamage : MonoBehaviour
+[RequireComponent(typeof(Arrow))]
+public class ArrowDamage : MonoBehaviour
 {
-    [SerializeField] private int _damage;
+    private Arrow _arrow;
 
-    public int Damage => _damage;
-
-    protected abstract Creature TryGetCreature(Collision collision);
+    private void OnEnable()
+    {
+        _arrow = GetComponent<Arrow>();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Creature creature = TryGetCreature(collision);
-
-        if (creature)
+        if (collision.gameObject.TryGetComponent(out IDamageable target))
         {
-            creature.TakeDamage(_damage);
-            gameObject.SetActive(false);
-        }
-
-        if (collision.gameObject.TryGetComponent(out Obstacle obstacle))
-        {
-            obstacle.TakeDamage(_damage);
+            target.TakeDamage(_arrow.Damage);
             gameObject.SetActive(false);
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//protected abstract Creature GetCreature(Collision collision);
+
+//Creature creature = GetCreature(collision);
+//if (creature)
+//{
+//    creature.TakeDamage(_damage);
+//    gameObject.SetActive(false);
+//}
+
+//if (collision.gameObject.TryGetComponent(out Obstacle obstacle))
+//{
+//    obstacle.TakeDamage(_damage);
+//    gameObject.SetActive(false);
+//}

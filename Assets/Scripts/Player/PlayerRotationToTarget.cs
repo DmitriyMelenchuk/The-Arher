@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerRotationFollowTarget : MonoBehaviour
+public class PlayerRotationToTarget : MonoBehaviour
 {
     [SerializeField] private Transform _hand;
     

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4077381799946466343}
   - component: {fileID: 7448584361769730974}
   - component: {fileID: 5301943075709099940}
-  - component: {fileID: 368554402864166071}
-  m_Layer: 0
+  - component: {fileID: 1366984417108782737}
+  m_Layer: 7
   m_Name: PlayerArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cc7de937fbfc2a42b5cea9b8aea9554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &368554402864166071
+--- !u!114 &1366984417108782737
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,10 +118,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1511596873774556162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c8926affcbdfd74f98dda62c025d743, type: 3}
+  m_Script: {fileID: 11500000, guid: 4682dcbc11cc8fd478ba4346d8c1dabc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 2
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1001 &2840981650121427300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133,6 +135,10 @@ PrefabInstance:
     - target: {fileID: 182122, guid: a7ef2398046494d0cadc6b5c28cfa84f, type: 3}
       propertyPath: m_Name
       value: Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 182122, guid: a7ef2398046494d0cadc6b5c28cfa84f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 464316, guid: a7ef2398046494d0cadc6b5c28cfa84f, type: 3}
       propertyPath: m_RootOrder

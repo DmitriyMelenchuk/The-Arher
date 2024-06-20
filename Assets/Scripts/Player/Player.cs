@@ -8,6 +8,9 @@ public class Player : Creature
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+
         if (_playerShoting.IsStartShoting == true)
             _playerHand.Rotate(_playerInput.MousePosition);
     }

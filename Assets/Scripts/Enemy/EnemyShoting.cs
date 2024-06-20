@@ -7,14 +7,18 @@ public class EnemyShoting : MonoBehaviour
 
     [SerializeField] private EnemyBow _weapon;
     [SerializeField] private EnemyHand _enemyHand;
-    [SerializeField] private float _timeBeforeShot;
 
     private Animator _animator;
     private float _forceShot = 15f;
+    private float _runnigTime;
+    private int _timeBetweenShot;
+    private int _minTimeBetweenShot = 1;
+    private int _maxTimeBetweenShot = 5;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _timeBetweenShot = GetRandomTimeToShot();
     }
 
     private void OnEnable()
@@ -23,10 +27,28 @@ public class EnemyShoting : MonoBehaviour
         _enemyHand.EndedRotation += OnEndedShot;
     }
 
+    private void Update()
+    {
+        _runnigTime += Time.deltaTime;
+
+        if (_runnigTime >= _timeBetweenShot)
+        {
+            _enemyHand.Rotate();
+            _timeBetweenShot = GetRandomTimeToShot();
+            _runnigTime = 0;
+        }
+    }
+
     private void OnDisable()
     {
         _enemyHand.StartingRotation -= OnStartedShot;
         _enemyHand.EndedRotation -= OnEndedShot;
+    }
+
+    public int GetRandomTimeToShot()
+    {
+        int value = Random.Range(_minTimeBetweenShot, _maxTimeBetweenShot);
+        return value;
     }
 
     private void OnStartedShot()

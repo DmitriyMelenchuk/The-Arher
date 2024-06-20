@@ -18,6 +18,7 @@ public class PauseScreen : Screen
         _playButton.interactable = false;
         _restartButton.interactable = false;
         _exitButton.interactable = false;
+        gameObject.SetActive(false);
     }
 
     public override void Open()
@@ -26,6 +27,7 @@ public class PauseScreen : Screen
         _playButton.interactable = true;
         _restartButton.interactable = true;
         _exitButton.interactable = true;
+        gameObject.SetActive(true);
     }
 
     protected override void Enable()
