@@ -7,6 +7,7 @@ public abstract class Creature : MonoBehaviour, IDamageable
     [SerializeField] private int _health;
 
     private int _maxHealth;
+    private Vector3 _startPosition;
 
     public int Health => _health; 
     protected Rigidbody Rigidbody => GetComponent<Rigidbody>();
@@ -18,6 +19,7 @@ public abstract class Creature : MonoBehaviour, IDamageable
     private void OnEnable()
     {
         Died += OnDie;
+        _startPosition = transform.position;
     }
 
     private void Start()
@@ -46,6 +48,8 @@ public abstract class Creature : MonoBehaviour, IDamageable
     public void Reset()
     {
         _health = _maxHealth;
+        transform.position = _startPosition;
+
         ChangedHealth?.Invoke();
     }
 

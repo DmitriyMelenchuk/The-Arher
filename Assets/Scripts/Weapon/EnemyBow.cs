@@ -4,7 +4,7 @@ public class EnemyBow : MonoBehaviour, IWeapon
 {
     [SerializeField] private ArrowSpawner _arrowSpawner;
     [SerializeField] private EnemyHand _enemyHand;
-    [SerializeField] private Transform target;
+    [SerializeField] private Transform _target;
     [SerializeField] private int _damage;
 
     private Arrow _currentArrow;
@@ -22,7 +22,7 @@ public class EnemyBow : MonoBehaviour, IWeapon
 
     public void Shot(float forceShot)
     {
-        Vector3 heading = target.position - transform.position;
+        Vector3 heading = _target.position - transform.position;
         float distance = heading.magnitude;
         Vector3 direction = new Vector3(heading.x, heading.y + GetRandomValue(), heading.z) / distance;
 
