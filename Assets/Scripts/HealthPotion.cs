@@ -1,15 +1,12 @@
-using System;
 using UnityEngine;
 
-public class HealthPotion : MonoBehaviour
+public class HealthPotion : MonoBehaviour, IPotion
 {
     [SerializeField] private Player _player;
-
-    public int Value { get; private set; }
-    public int Count { get; private set; }
+    [SerializeField] private float _percentAddHealth;
 
     public void Use()
     {
-        _player.AddHealth(2);
+        _player.AddHealth(_percentAddHealth);
     }
 }

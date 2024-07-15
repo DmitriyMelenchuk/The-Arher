@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class MoneyCounter : MonoBehaviour
 {
-    private int _money;
+    private const string MoneyKey = "money";
+
+    public int Money => PlayerPrefs.GetInt(MoneyKey);
 
     public event Action<int> MoneyChanged;
 
@@ -11,8 +13,8 @@ public class MoneyCounter : MonoBehaviour
     {
         if (value > 0)
         {
-            _money += value;
-            MoneyChanged?.Invoke(_money);
+            PlayerPrefs.SetInt(MoneyKey,Money + value);
+            MoneyChanged?.Invoke(Money);
         }  
     }
 
@@ -20,8 +22,8 @@ public class MoneyCounter : MonoBehaviour
     {
         if (value > 0)
         {
-            _money -= value;
-            MoneyChanged?.Invoke(_money);
+            PlayerPrefs.SetInt(MoneyKey, Money - value);
+            MoneyChanged?.Invoke(Money);
         }
     }
 }

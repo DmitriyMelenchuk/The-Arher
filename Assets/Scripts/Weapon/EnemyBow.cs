@@ -4,14 +4,19 @@ public class EnemyBow : MonoBehaviour, IWeapon
 {
     [SerializeField] private ArrowSpawner _arrowSpawner;
     [SerializeField] private EnemyHand _enemyHand;
-    [SerializeField] private Transform target;
     [SerializeField] private int _damage;
 
+    private Transform _target;
     private Arrow _currentArrow;
     private float _angleRotateArrow = 180;
 
     private float _minForce = 3;
     private float _maxForce = 7;
+
+    public void Init(Transform target)
+    {
+        _target = target;
+    }
 
     private void Update()
     {
@@ -22,10 +27,9 @@ public class EnemyBow : MonoBehaviour, IWeapon
 
     public void Shot(float forceShot)
     {
-        Vector3 heading = target.position - transform.position;
+        Vector3 heading = _target.position - transform.position;
         float distance = heading.magnitude;
         Vector3 direction = new Vector3(heading.x, heading.y + GetRandomValue(), heading.z) / distance;
-
         _currentArrow.Move(direction, forceShot);
     }
 

@@ -4,16 +4,19 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class Creature : MonoBehaviour, IDamageable
 {
+    private static string _keyHealth = "health";
+
     [SerializeField] private int _health;
 
     private int _maxHealth;
 
     public int Health => _health; 
+
     protected Rigidbody Rigidbody => GetComponent<Rigidbody>();
 
     public event Action Died;
     public event Action<int> TakedDamage;
-    public event Action ChangedHealth;
+    public event Action<int> ChangedHealth;
 
     private void OnEnable()
     {
@@ -34,7 +37,7 @@ public abstract class Creature : MonoBehaviour, IDamageable
     {
         _health -= damage;
         TakedDamage?.Invoke(damage);
-        ChangedHealth?.Invoke();
+        ChangedHealth?.Invoke(_health);
 
         if (_health <= 0)
         {
@@ -43,23 +46,21 @@ public abstract class Creature : MonoBehaviour, IDamageable
         }
     }
 
-    public void Reset()
+    public void SetMaxHealth(int value)
     {
-        _health = _maxHealth;
-        ChangedHealth?.Invoke();
+
     }
 
-    public void AddHealth(int value)
+    public void AddHealth(float value)
     {
-        if (value > 0)
-        {
-            if (_health + value <= _maxHealth)
-                _health += value;
-            else
-                _health = _maxHealth;
+        int health = (int)(value * _maxHealth);
 
-            ChangedHealth?.Invoke();
-        } 
+         if (_health + health <= _maxHealth)
+             _health += health;
+         else
+             _health = _maxHealth;
+       
+        ChangedHealth?.Invoke(_health);
     }
 
     protected abstract void OnDie();

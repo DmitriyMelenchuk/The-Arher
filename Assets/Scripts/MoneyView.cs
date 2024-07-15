@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +9,11 @@ public class MoneyView : MonoBehaviour
     private void OnEnable()
     {
         _moneyCounter.MoneyChanged += OnScoreChanged;
+    }
+
+    private void Start()
+    {
+        _money.text = _moneyCounter.Money.ToString();
     }
 
     private void OnDisable()

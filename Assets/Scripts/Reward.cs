@@ -3,18 +3,21 @@ using UnityEngine;
 [RequireComponent(typeof(Enemy))]
 public class Reward : MonoBehaviour
 {
-    [SerializeField] private int _reward;
-    [SerializeField] private MoneyCounter _moneyCounter;
+    [SerializeField] private int _count;
+    private MoneyCounter _moneyCounter;
 
     private Enemy _enemy;
 
-    private void Awake()
+    public int Count => _count;
+
+    public void Init(MoneyCounter moneyCounter)
     {
-        _enemy = GetComponent<Enemy>();
+        _moneyCounter = moneyCounter;
     }
 
     private void OnEnable()
     {
+        _enemy = GetComponent<Enemy>();
         _enemy.Died += OnDied;
     }
 
@@ -25,6 +28,6 @@ public class Reward : MonoBehaviour
 
     private void OnDied()
     {
-        _moneyCounter.Add(_reward);
+        _moneyCounter.Add(_count);
     }
 }

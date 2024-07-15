@@ -9,7 +9,7 @@ public abstract class Obstacle : MonoBehaviour, IDamageable
     private int _startHealth;
 
     public event Action Died;
-    public event Action ChangedHealth;
+    public event Action<int> ChangedHealth;
     public event Action<int> TakedDamage;
 
     public int Health => _health;
@@ -31,7 +31,7 @@ public abstract class Obstacle : MonoBehaviour, IDamageable
     {
         _health -= damage;
         TakedDamage?.Invoke(damage);
-        ChangedHealth?.Invoke();
+        ChangedHealth?.Invoke(_health);
 
         if (_health <= 0)
         {

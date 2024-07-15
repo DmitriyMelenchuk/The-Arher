@@ -25,9 +25,9 @@ public abstract class Bar : MonoBehaviour
         _iDamageable.ChangedHealth -= OnTakedDamage;
     }
 
-    protected virtual void OnTakedDamage()
+    protected virtual void OnTakedDamage(int value)
     {
-        Slider.value = _iDamageable.Health; 
+        Slider.value = value; 
     }
 
     protected abstract Vector3 GetPosition();
