@@ -17,11 +17,6 @@ public class DamageTextView : MonoBehaviour
         _value.text = $"-{damage}";
     }
 
-    private void ChangeAlpha()
-    { 
-        _value.color = new Color32(((byte)_value.color.a), ((byte)_value.color.b), ((byte)_value.color.g), 100);
-    }
-
     private void OnDisable()
     {
         _creature.TakedDamage -= OnTakedDamage;

@@ -3,22 +3,21 @@ using UnityEngine;
 
 public class ShopStatsPrice : MonoBehaviour
 {
-    private const string PriceKeyHealth = "priceHealth";
-    private const string PriceKeyDamage = "priceDamage";
-    private const string LevelAdvanceHealthKey = "levelHealth";
-    private const string LevelAdvanceDamageKey = "levelDamage";
-    private const int MaxLevelAdvance = 10;
-    private const int ValueAdvance = 5;
-    private const int StartPrice = 5;
-    private const int MultiplierPrice = ValueAdvance * 5;
+    private const string _keyPriceHealth = "priceHealth";
+    private const string _keyPriceDamage = "priceDamage";
+    private const string _keyLevelAdvanceHealth = "levelHealth";
+    private const string _keyLevelAdvanceDamage = "levelDamage";
+    private const int _maxLevelAdvance = 10;
+    private const int _valueAdvance = 5;
+    private const int _multiplierPrice = _valueAdvance * 5;
 
     [SerializeField] private ShopScreen _shopScreen;
     [SerializeField] private MoneyCounter _moneyCounter;
 
-    public int CurrentLevelAdvanceHealth => PlayerPrefs.GetInt(LevelAdvanceHealthKey);
-    public int CurrentLevelAdvanceDamage => PlayerPrefs.GetInt(LevelAdvanceDamageKey);
-    public int CurrentPriceHealth => PlayerPrefs.GetInt(PriceKeyHealth);
-    public int CurrentPriceDamage => PlayerPrefs.GetInt(PriceKeyDamage);
+    public int CurrentLevelAdvanceHealth => PlayerPrefs.GetInt(_keyLevelAdvanceHealth);
+    public int CurrentLevelAdvanceDamage => PlayerPrefs.GetInt(_keyLevelAdvanceDamage);
+    public int CurrentPriceHealth => PlayerPrefs.GetInt(_keyPriceHealth);
+    public int CurrentPriceDamage => PlayerPrefs.GetInt(_keyPriceDamage);
 
     public event Action<string> LevelHealthChanged;
     public event Action<string> LevelDamageChanged;
@@ -28,10 +27,10 @@ public class ShopStatsPrice : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerPrefs.DeleteKey(PriceKeyHealth);
-        PlayerPrefs.DeleteKey(PriceKeyDamage);
-        PlayerPrefs.DeleteKey(LevelAdvanceHealthKey);
-        PlayerPrefs.DeleteKey(LevelAdvanceDamageKey);
+        //PlayerPrefs.DeleteKey(_keyPriceHealth);
+        //PlayerPrefs.DeleteKey(_keyPriceDamage);
+        //PlayerPrefs.DeleteKey(_keyLevelAdvanceHealth);
+        //PlayerPrefs.DeleteKey(_keyLevelAdvanceDamage);
 
         _shopScreen.HealthStatsButtonClick += OnHealthStatsButtonClick;
         _shopScreen.DamageStatsButtonClick += OnDamageStatsButtonClick;
@@ -42,6 +41,15 @@ public class ShopStatsPrice : MonoBehaviour
     {
         LevelHealthChanged?.Invoke(CurrentLevelAdvanceHealth.ToString() + "/10");
         LevelDamageChanged?.Invoke(CurrentLevelAdvanceDamage.ToString() + "/10");
+
+        if (CurrentPriceDamage == 0)
+            PlayerPrefs.SetInt(_keyPriceDamage, _valueAdvance);
+
+        if (CurrentPriceHealth == 0)
+            PlayerPrefs.SetInt(_keyPriceHealth, _valueAdvance);
+
+        PriceDamageChanged?.Invoke(CurrentPriceDamage);
+        PriceHealthChanged?.Invoke(CurrentPriceHealth);
     }
 
     private void OnDisable()
@@ -52,52 +60,35 @@ public class ShopStatsPrice : MonoBehaviour
 
     private void OnHealthStatsButtonClick()
     {
-        int index = 1;
-
-        if (CurrentLevelAdvanceHealth < MaxLevelAdvance)
-        {
-            if (_moneyCounter.Money >= CurrentPriceHealth)
-            {
-                if (CurrentLevelAdvanceHealth == 0)
-                    PlayerPrefs.SetInt(PriceKeyHealth, CurrentPriceHealth + ValueAdvance);
-
-                _moneyCounter.Remove(CurrentPriceHealth);
-                if (CurrentLevelAdvanceHealth >= ValueAdvance)
-                    PlayerPrefs.SetInt(PriceKeyHealth, CurrentPriceHealth + MultiplierPrice);
-
-                else
-                    PlayerPrefs.SetInt(PriceKeyHealth, CurrentPriceHealth + ValueAdvance);
-
-                
-                PlayerPrefs.SetInt(LevelAdvanceHealthKey, CurrentLevelAdvanceHealth + index);
-                LevelHealthChanged?.Invoke(CurrentLevelAdvanceHealth.ToString() + "/10");
-                PriceHealthChanged?.Invoke(CurrentPriceHealth);
-            }  
-        }
+        CalculatePriceStats(CurrentLevelAdvanceHealth, CurrentPriceHealth, _keyPriceHealth, _keyLevelAdvanceHealth);
+        LevelHealthChanged?.Invoke(CurrentLevelAdvanceHealth.ToString() + "/10");
+        PriceHealthChanged?.Invoke(CurrentPriceHealth);
     }
 
     private void OnDamageStatsButtonClick()
     {
+        CalculatePriceStats(CurrentLevelAdvanceDamage, CurrentPriceDamage, _keyPriceDamage, _keyLevelAdvanceDamage);
+        LevelDamageChanged?.Invoke(CurrentLevelAdvanceDamage.ToString() + "/10");
+        PriceDamageChanged?.Invoke(CurrentPriceDamage);
+    }
+
+    private void CalculatePriceStats(int currentLevelAdvance, int currentPrice, string keyPrice, string keyLevelAdvance)
+    {
         int index = 1;
 
-        if (CurrentLevelAdvanceDamage < MaxLevelAdvance)
+        if (currentLevelAdvance < _maxLevelAdvance)
         {
-            if (_moneyCounter.Money >= CurrentLevelAdvanceDamage)
-            {
-                if (CurrentLevelAdvanceDamage == 0)
-                    PlayerPrefs.SetInt(PriceKeyDamage, CurrentPriceDamage + ValueAdvance);
+            if (_moneyCounter.Money >= currentLevelAdvance)
+            {                   
+                _moneyCounter.Remove(currentPrice);
 
-                _moneyCounter.Remove(CurrentPriceDamage);
-
-                if (CurrentLevelAdvanceHealth >= ValueAdvance)
-                    PlayerPrefs.SetInt(PriceKeyDamage, CurrentPriceDamage + MultiplierPrice);
+                if (currentLevelAdvance >= _valueAdvance)
+                    PlayerPrefs.SetInt(keyPrice, currentPrice + _multiplierPrice);
 
                 else
-                    PlayerPrefs.SetInt(PriceKeyDamage, CurrentPriceDamage + ValueAdvance);
+                    PlayerPrefs.SetInt(keyPrice, currentPrice + _valueAdvance);
 
-                PlayerPrefs.SetInt(LevelAdvanceDamageKey, CurrentLevelAdvanceDamage + index);
-                LevelDamageChanged?.Invoke(CurrentLevelAdvanceDamage.ToString() + "/10");
-                PriceDamageChanged?.Invoke(CurrentPriceDamage);
+                PlayerPrefs.SetInt(keyLevelAdvance, currentLevelAdvance + index);
             }
         }
     }
