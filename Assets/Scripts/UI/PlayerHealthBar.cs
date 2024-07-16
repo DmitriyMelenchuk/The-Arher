@@ -8,4 +8,9 @@ public class PlayerHealthBar : Bar
     {
         return Slider.transform.position = _transform.position;
     }
+
+    protected override IDamageable Init(IDamageable damageable)
+    {
+        return GetComponentInParent<Player>()._damageable;
+    }
 }

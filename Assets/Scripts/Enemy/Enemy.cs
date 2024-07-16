@@ -1,25 +1,26 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
-public class Enemy : Creature
+public class Enemy : MonoBehaviour, IDamageable
 {
-    private float _betweenDie = 2;
+    [SerializeField] private int _health;
+
+    public IDamageable _damageable { private set; get; }
+
+    public event Action Died;
+    public event Action<int> ChangedHealth;
+    public event Action<int> TakedDamage;
+
+    public int Health => _health;
 
     private void Awake()
     {
-        Rigidbody.isKinematic = true;
+        _damageable = new EnemyHealth(_health);
     }
 
-    protected override void OnDie()
+    public void TakeDamage(int damage)
     {
-        StartCoroutine(ApplyForced());    
-    }
-
-    private IEnumerator ApplyForced()
-    {
-        Rigidbody.isKinematic = false;
-        Rigidbody.AddForce(new Vector3(2f,6f,6f) * 20);
-        yield return new WaitForSeconds(_betweenDie);
-        gameObject.SetActive(false);
+        _damageable.TakeDamage(damage);
     }
 }

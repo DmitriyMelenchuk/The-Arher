@@ -7,6 +7,6 @@ public class HealthPotion : MonoBehaviour, IPotion
 
     public void Use()
     {
-        _player.AddHealth(_percentAddHealth);
+        //_player.AddHealth(_percentAddHealth);
     }
 }
