@@ -33,14 +33,6 @@ public class PlayerHealth : IDamageable
             Died?.Invoke();
     }
 
-    public void SetMaxHealth(int value)
-    {
-        if (value > 0)
-        {
-            PlayerPrefs.SetInt(_keyHealth, Health + value);
-        }
-    }
-
     public void HealHealth(float percentAddHealth)
     {
         int value = (int)(Health * percentAddHealth);

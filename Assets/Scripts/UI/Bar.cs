@@ -7,22 +7,23 @@ public abstract class Bar : MonoBehaviour
     [SerializeField] protected Slider Slider;
     private IDamageable _iDamageable;
 
-    private void Awake()
+    private void Start()
     {
-        _iDamageable = GetComponentInParent<IDamageable>();
-         Slider.maxValue = _iDamageable.Health;
+        _iDamageable = Init(_iDamageable);
+        Slider.maxValue = _iDamageable.Health;
         Slider.value = _iDamageable.Health;
-        Slider.transform.position = GetPosition();
-    }
-    
-    private void OnEnable()
-    {
+        Slider.transform.position = GetPosition(); 
         _iDamageable.ChangedHealth += OnTakedDamage;
     }
+    
+    protected abstract IDamageable Init(IDamageable damageable);
 
     private void OnDisable()
     {
-        _iDamageable.ChangedHealth -= OnTakedDamage;
+        if (_iDamageable != null)
+        {
+            _iDamageable.ChangedHealth -= OnTakedDamage;
+        } 
     }
 
     protected virtual void OnTakedDamage(int value)

@@ -1074,12 +1074,12 @@ GameObject:
   - component: {fileID: 6120006794874709050}
   - component: {fileID: 5426284185978883075}
   - component: {fileID: 3683045306433785852}
-  - component: {fileID: 5256805430793957574}
   - component: {fileID: 4976553893044016547}
   - component: {fileID: 730311704987054932}
   - component: {fileID: 2247752191432515914}
   - component: {fileID: 3220770259564455102}
   - component: {fileID: 8052178848106284075}
+  - component: {fileID: 5535542314985944766}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -1158,19 +1158,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weapon: {fileID: 2995418899158952088}
   _enemyHand: {fileID: 6895360625549693393}
---- !u!114 &5256805430793957574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3292166099484792763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dab3985bbbaec6e4aae57aa123b748fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageText: {fileID: 2534104906970927367}
 --- !u!114 &4976553893044016547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1299,6 +1286,19 @@ MonoBehaviour:
   - m_Rig: {fileID: 7552604149852855991}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &5535542314985944766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3292166099484792763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b96a855409ec9644f97db3906098ce1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageText: {fileID: 2534104906970927367}
 --- !u!1 &3353100327388880511
 GameObject:
   m_ObjectHideFlags: 0

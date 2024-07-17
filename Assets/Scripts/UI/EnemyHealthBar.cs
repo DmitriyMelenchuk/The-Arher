@@ -9,4 +9,9 @@ public class EnemyHealthBar : Bar
     {
         return Slider.transform.position = transform.parent.position + _offset;
     }
+
+    protected override IDamageable Init(IDamageable damageable)
+    {
+        return GetComponentInParent<Enemy>()._damageable;
+    }
 }

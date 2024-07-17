@@ -916,7 +916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c773dca67b9324e8e7403c6f07ae0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageStats: {fileID: 295079449}
+  _player: {fileID: 295079439}
   _durationTime: 3
   _percentAdvanceDamage: 0.4
 --- !u!114 &243635954
@@ -2435,11 +2435,10 @@ GameObject:
   - component: {fileID: 294720100}
   - component: {fileID: 285736362}
   - component: {fileID: 295079447}
-  - component: {fileID: 295079449}
   - component: {fileID: 295079439}
   - component: {fileID: 295079435}
   - component: {fileID: 295079443}
-  - component: {fileID: 295079437}
+  - component: {fileID: 295079451}
   - component: {fileID: 295079441}
   - component: {fileID: 295079445}
   - component: {fileID: 295079431}
@@ -2594,19 +2593,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &295079437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 295079428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dab3985bbbaec6e4aae57aa123b748fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageText: {fileID: 563613661}
 --- !u!1 &295079438
 GameObject:
   m_ObjectHideFlags: 0
@@ -2635,7 +2621,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a57f814cedaa74691c7cf2b047fc92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 10
+  _health: 3
+  _damage: 3
 --- !u!1 &295079440
 GameObject:
   m_ObjectHideFlags: 0
@@ -2796,19 +2783,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &295079449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 295079428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f64477d1f84ae4f846299bb2c25c13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startDamage: 3
 --- !u!1 &295079450
 GameObject:
   m_ObjectHideFlags: 0
@@ -2825,6 +2799,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &295079451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295079428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9151f1bd1315dce43b7e0ce7118f0906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageText: {fileID: 563613661}
 --- !u!1 &295079452
 GameObject:
   m_ObjectHideFlags: 0
@@ -4846,7 +4833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _arrowSpawner: {fileID: 1198891731}
-  _creatureStats: {fileID: 295079449}
+  _player: {fileID: 295079439}
 --- !u!1 &1024679723
 GameObject:
   m_ObjectHideFlags: 0

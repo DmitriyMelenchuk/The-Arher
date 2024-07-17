@@ -2,8 +2,6 @@ using System;
 
 public class EnemyHealth : IDamageable
 {
-    private int _health;
-
     public int Health { private set; get; }
 
     public event Action Died;
@@ -12,20 +10,19 @@ public class EnemyHealth : IDamageable
 
     public EnemyHealth(int value)
     {
-        _health = value;
-        Health = _health;
+        Health = value;
     }
 
     public void TakeDamage(int damage)
     {
-        _health -= damage;
+        Health -= damage;
         TakedDamage?.Invoke(damage);
-        ChangedHealth?.Invoke(_health);
+        ChangedHealth?.Invoke(Health);
 
-        if (_health < 0)
-            _health = 0;
+        if (Health < 0)
+            Health = 0;
 
-        if (_health == 0)
+        if (Health == 0)
             Died?.Invoke();
     }
 }
