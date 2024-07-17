@@ -1,26 +1,18 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerDamage : MonoBehaviour
+public class PlayerDamage
 {
-    private const string _damageKey = "damage";
-    
-    [SerializeField] private int _startDamage;
+    private const string _keyDamage = "playerDamage";
 
     private bool _isActiveAddDamageForTime;
 
-    public int Damage => PlayerPrefs.GetInt(_damageKey);
+    public int Damage => PlayerPrefs.GetInt(_keyDamage);
 
-    private void Start()
+   public PlayerDamage(int damage)
     {
-        if (Damage < _startDamage)
-            PlayerPrefs.SetInt(_damageKey, _startDamage);
-    }
-
-    public void SetMaxDamage(int value)
-    {
-        if (value > 0)
-            PlayerPrefs.SetInt("damage", Damage + value);
+        if (Damage < damage)
+            PlayerPrefs.SetInt(_keyDamage, damage);
     }
 
     public IEnumerator AddDamageForTime(float time, float value)
@@ -34,12 +26,12 @@ public class PlayerDamage : MonoBehaviour
             while (runnigTime < time)
             {
                 _isActiveAddDamageForTime = true;
-                PlayerPrefs.SetInt(_damageKey, damagePercent);
+                PlayerPrefs.SetInt(_keyDamage, damagePercent);
                 runnigTime += Time.deltaTime;
                 yield return null;
             }
 
-            PlayerPrefs.SetInt(_damageKey, startDamage);
+            PlayerPrefs.SetInt(_keyDamage, startDamage);
             _isActiveAddDamageForTime = false;
             runnigTime = 0;
         }

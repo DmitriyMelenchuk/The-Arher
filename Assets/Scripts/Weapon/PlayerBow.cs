@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerBow : MonoBehaviour, IWeapon
 {
     [SerializeField] private ArrowSpawner _arrowSpawner;
-    [SerializeField] private PlayerDamage _creatureStats;
+    [SerializeField] private Player _player;
 
     private Arrow _currentArrow;
 
@@ -29,7 +29,7 @@ public class PlayerBow : MonoBehaviour, IWeapon
         {
             _currentArrow = _arrowSpawner.Create();
             _currentArrow.SetToHand(transform);
-            _currentArrow.InitDamage(_creatureStats.Damage);
+            _currentArrow.InitDamage(_player.PlayerDamage.Damage);
         }           
     }
 }

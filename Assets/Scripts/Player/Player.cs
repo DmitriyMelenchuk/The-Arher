@@ -4,11 +4,13 @@ using UnityEngine;
 public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private int _health;
+    [SerializeField] private int _damage;
 
     private PlayerShoting _playerShoting;
     private PlayerInput _playerInput;
     private PlayerHand _playerHand;
     public IDamageable _damageable { private set; get; }
+    public PlayerDamage PlayerDamage { private set; get; }
 
     public event Action Died;
     public event Action<int> ChangedHealth;
@@ -31,6 +33,7 @@ public class Player : MonoBehaviour, IDamageable
         _playerShoting = playerShoting;
         _playerHand = playerHand;
         _damageable = new PlayerHealth(_health);
+        PlayerDamage = new PlayerDamage(_damage);
     }
 
     public void TakeDamage(int damage)

@@ -23,7 +23,6 @@ public abstract class Bar : MonoBehaviour
         if (_iDamageable != null)
         {
             _iDamageable.ChangedHealth -= OnTakedDamage;
-            Debug.Log(_iDamageable.Health);
         } 
     }
 
