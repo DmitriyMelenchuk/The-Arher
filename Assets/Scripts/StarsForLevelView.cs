@@ -17,7 +17,7 @@ public class StarsForLevelView : MonoBehaviour
         for (int i = 0; i < _buttons.Length; i++)
         {
             string starsKey = "stars" + (i + _oneStar);
-            Image[] images = new Image[_buttons[i].transform.childCount - 1];
+            Image[] images = new Image[_buttons[i].transform.childCount/* - 1*/];
 
             for (int j = 0; j < images.Length; j++)
                 images[j] = _buttons[i].transform.GetChild(j).GetComponent<Image>();
@@ -36,7 +36,7 @@ public class StarsForLevelView : MonoBehaviour
         }
     }
     
-    private void SetStarsByIndex(Image[] images, int index) // ≈сли звезды не закрашиваютс€, поработать над индексом
+    private void SetStarsByIndex(Image[] images, int index) // ≈сли звезды не закрашиваютс€, изменить индекс
     {
         for (int j = 0; j < index; j++)
         {

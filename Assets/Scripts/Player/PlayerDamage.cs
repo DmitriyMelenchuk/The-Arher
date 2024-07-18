@@ -10,10 +10,10 @@ public class PlayerDamage
     public int Damage => PlayerPrefs.GetInt(_keyDamage);
 
    public PlayerDamage(int damage)
-    {
-        if (Damage < damage)
-            PlayerPrefs.SetInt(_keyDamage, damage);
-    }
+   {
+       if (Damage < damage)
+           PlayerPrefs.SetInt(_keyDamage, damage);
+   }
 
     public IEnumerator AddDamageForTime(float time, float value)
     {

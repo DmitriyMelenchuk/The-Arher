@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class MoneyCounter : MonoBehaviour
+public class MoneyWallet : MonoBehaviour
 {
     private const string MoneyKey = "money";
 

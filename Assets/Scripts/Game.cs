@@ -9,17 +9,9 @@ public class Game : MonoBehaviour
     [SerializeField] private PauseScreen _pauseScreen;
     [SerializeField] private GameOverScreen _gameOverScreen;
     [SerializeField] private NextLevelScreen _nextLevelScreen;
-    [SerializeField] private MoneyCounter _moneyCounter;
+    [SerializeField] private MoneyWallet _moneyCounter;
     [SerializeField] private Player _player;
     [SerializeField] private EnemyCounter _enemyCounter;
-
-
-    private void Start()
-    {
-        _pauseScreen.Close();
-        _gameOverScreen.Close();
-        _nextLevelScreen.Close();
-    }
 
     private void OnEnable()
     {
@@ -32,7 +24,15 @@ public class Game : MonoBehaviour
         _nextLevelScreen.MainMenuButtonClick += OnExitButtonClick;
         _nextLevelScreen.NextLevelButtonClick += OnNextlevelButtonClick;
         _enemyCounter.EnemiesAreOver += OnEnemiesAreOver;
-        _player.Died += OnDied;
+        
+    }
+
+    private void Start()
+    {
+        _pauseScreen.Close();
+        _gameOverScreen.Close();
+        _nextLevelScreen.Close();
+        _player._damageable.Died += OnDied;
     }
 
     private void OnDisable()
@@ -46,7 +46,7 @@ public class Game : MonoBehaviour
         _nextLevelScreen.MainMenuButtonClick -= OnExitButtonClick;
         _nextLevelScreen.NextLevelButtonClick -= OnNextlevelButtonClick;
         _enemyCounter.EnemiesAreOver -= OnEnemiesAreOver;
-        _player.Died -= OnDied;
+        _player._damageable.Died -= OnDied;
     }
 
     private void OnEnemiesAreOver()

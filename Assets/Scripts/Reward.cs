@@ -4,30 +4,30 @@ using UnityEngine;
 public class Reward : MonoBehaviour
 {
     [SerializeField] private int _count;
-    private MoneyCounter _moneyCounter;
 
+    private MoneyWallet _moneyWallet;
     private Enemy _enemy;
 
     public int Count => _count;
 
-    public void Init(MoneyCounter moneyCounter)
+    public void Init(MoneyWallet moneyWallet)
     {
-        _moneyCounter = moneyCounter;
+        _moneyWallet = moneyWallet;
     }
 
     private void OnEnable()
     {
         _enemy = GetComponent<Enemy>();
-        _enemy.Died += OnDied;
+        _enemy._damageable.Died += OnDied;
     }
 
     private void OnDisable()
     {
-        _enemy.Died -= OnDied;
+        _enemy._damageable.Died -= OnDied;
     }
 
     private void OnDied()
     {
-        _moneyCounter.Add(_count);
+        _moneyWallet.Add(_count);
     }
 }

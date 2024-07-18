@@ -15,7 +15,7 @@ public class ShopStatsPrice : MonoBehaviour
     private const int _multiplierPrice = _valueAdvance * 5;
 
     [SerializeField] private ShopScreen _shopScreen;
-    [SerializeField] private MoneyCounter _moneyCounter;
+    [SerializeField] private MoneyWallet _moneyWallet;
 
     public int Damage => PlayerPrefs.GetInt(_keyDamage);
     public int Health => PlayerPrefs.GetInt(_keyHealth);
@@ -83,9 +83,9 @@ public class ShopStatsPrice : MonoBehaviour
 
         if (currentLevelAdvance < _maxLevelAdvance)
         {
-            if (_moneyCounter.Money >= currentLevelAdvance)
+            if (_moneyWallet.Money >= currentLevelAdvance)
             {                   
-                _moneyCounter.Remove(currentPrice);
+                _moneyWallet.Remove(currentPrice);
 
                 if (currentLevelAdvance >= _valueAdvance)
                     PlayerPrefs.SetInt(keyPrice, currentPrice + _multiplierPrice);

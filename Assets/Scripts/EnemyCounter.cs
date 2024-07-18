@@ -15,13 +15,13 @@ public class EnemyCounter : MonoBehaviour
         _count = _enemies.Length;
 
         for (int i = 0; i < _enemies.Length; i++)
-            _enemies[i].Died += OnDied;
+            _enemies[i]._damageable.Died += OnDied;
     }
 
     private void Disable()
     {
         for (int i = 0; i < _enemies.Length; i++)
-            _enemies[i].Died -= OnDied;
+            _enemies[i]._damageable.Died -= OnDied;
     }
 
     private void OnDied()
@@ -29,6 +29,6 @@ public class EnemyCounter : MonoBehaviour
         _count--;
 
         if (_count == 0)
-            EnemiesAreOver?.Invoke();
+            EnemiesAreOver?.Invoke();   
     }
 }

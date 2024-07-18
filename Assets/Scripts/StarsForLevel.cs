@@ -1,9 +1,12 @@
+using System;
 using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StarsForLevel : MonoBehaviour
 {
+    private static string _keyStars = "stars";
+
     private const int _oneStar = 1;
     private const int _twoStar = 2;
     private const int _threeStar = 3;
@@ -15,7 +18,12 @@ public class StarsForLevel : MonoBehaviour
 
     private void OnEnable()
     {
-        _enemyCounter.EnemiesAreOver += OnLevelComplete;
+        _enemyCounter.EnemiesAreOver += OnLevelComplete;      
+    }
+
+    private void Start()
+    {
+        _keyStars += SceneManager.GetActiveScene().buildIndex.ToString();
     }
 
     private void OnDisable()
@@ -25,22 +33,25 @@ public class StarsForLevel : MonoBehaviour
 
     private void OnLevelComplete()
     {
-        StringBuilder stringBuilder = new StringBuilder("stars");
-        string starsKey = stringBuilder.Append(SceneManager.GetActiveScene().buildIndex).ToString();
-        Debug.Log(starsKey);
-        PlayerPrefs.SetInt(starsKey, _oneStar);
-
+        if (TryGetKeyStars(_oneStar))
+            SetStars(_oneStar);
+        
         if (_timer.RunnigTime < _timeForTwoStar)
-        {
-            PlayerPrefs.SetInt(starsKey, _twoStar);
-            Debug.Log("2 stars");
-        }
+            if (TryGetKeyStars(_twoStar))
+                SetStars(_twoStar);          
 
         if (_timer.RunnigTime < _timeForThreeStar)
-        {
-            PlayerPrefs.SetInt(starsKey, _threeStar);
-            Debug.Log("3 stars");
-        }
+            if (TryGetKeyStars(_threeStar))
+                SetStars(_threeStar);
     }
 
+    private bool TryGetKeyStars(int value)
+    {
+        return PlayerPrefs.GetInt(_keyStars) < value;
+    }
+
+    private void SetStars(int value)
+    {
+        PlayerPrefs.SetInt(_keyStars, value);
+    }
 }
