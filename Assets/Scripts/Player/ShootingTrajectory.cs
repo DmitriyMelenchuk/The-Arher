@@ -5,7 +5,6 @@ public class ShootingTrajectory : MonoBehaviour
     [SerializeField] private PlayerShoting _playerShoting;
     [SerializeField] private PlayerBow _weapon;
     [SerializeField] private RenderTrajectory _shotingTrajectory;
-    [SerializeField] private Transform _shotingTransform;
 
     private void OnEnable()
     {
