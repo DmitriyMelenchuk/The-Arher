@@ -18,6 +18,10 @@ public class ShopPotion : MonoBehaviour
     {
         _shopScreen.HealthPotionButtonClick += OnHealthPotionButtonClick;
         _shopScreen.DamagePotionButtonClick += OnDamagePotionButtonClick;
+    }
+
+    private void Start()
+    {
         HealthPotionCountChanged?.Invoke(PlayerPrefs.GetInt(_keyHealthPotion));
         DamagePotionCountChanged?.Invoke(PlayerPrefs.GetInt(_keyDamagePotion));
     }

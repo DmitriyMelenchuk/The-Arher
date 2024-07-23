@@ -1,20 +1,24 @@
 using System;
-using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StarsForLevel : MonoBehaviour
 {
-    private static string _keyStars = "stars";
+    private static string KeyLevel = "";
 
-    private const int _oneStar = 1;
-    private const int _twoStar = 2;
-    private const int _threeStar = 3;
+    private const string Level = "Level";
+    private const int OneStar = 1;
+    private const int TwoStar = 2;
+    private const int ThreeStar = 3;
+
+    private int _currentCountStars;
 
     [SerializeField] private int _timeForTwoStar;
     [SerializeField] private int _timeForThreeStar;
     [SerializeField] private Timer _timer;
     [SerializeField] private EnemyCounter _enemyCounter;
+
+    public event Action<int> ChangedCountStars;
 
     private void OnEnable()
     {
@@ -23,7 +27,7 @@ public class StarsForLevel : MonoBehaviour
 
     private void Start()
     {
-        _keyStars += SceneManager.GetActiveScene().buildIndex.ToString();
+        KeyLevel = Level + SceneManager.GetActiveScene().buildIndex.ToString();
     }
 
     private void OnDisable()
@@ -33,25 +37,39 @@ public class StarsForLevel : MonoBehaviour
 
     private void OnLevelComplete()
     {
-        if (TryGetKeyStars(_oneStar))
-            SetStars(_oneStar);
+        _currentCountStars = OneStar;
         
-        if (_timer.RunnigTime < _timeForTwoStar)
-            if (TryGetKeyStars(_twoStar))
-                SetStars(_twoStar);          
+        if (TryGetKeyStars(OneStar))
+            SetStars(OneStar);
+            
+        
+        if (_timer.RunnigTime <= _timeForTwoStar)
+        {
+            _currentCountStars = TwoStar;
 
-        if (_timer.RunnigTime < _timeForThreeStar)
-            if (TryGetKeyStars(_threeStar))
-                SetStars(_threeStar);
+            if (TryGetKeyStars(TwoStar))
+                SetStars(TwoStar);
+        }
+                
+
+        if (_timer.RunnigTime <= _timeForThreeStar)
+        {
+            _currentCountStars = ThreeStar;
+
+            if (TryGetKeyStars(ThreeStar))
+                SetStars(ThreeStar);
+        }
+
+        ChangedCountStars?.Invoke(_currentCountStars);
     }
 
     private bool TryGetKeyStars(int value)
     {
-        return PlayerPrefs.GetInt(_keyStars) < value;
+        return PlayerPrefs.GetInt(KeyLevel) < value;
     }
 
     private void SetStars(int value)
     {
-        PlayerPrefs.SetInt(_keyStars, value);
+        PlayerPrefs.SetInt(KeyLevel, value);
     }
 }
