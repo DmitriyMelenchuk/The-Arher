@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class EnemyView : MonoBehaviour
 {
-    [SerializeField] protected DamageTextSpawner DamageText;
-    private float _betweenDie = 2;
+    [SerializeField] private DamageTextSpawner _damageText;
+    [SerializeField] private AudioSource _takeDamageSound;
+    [SerializeField] private AudioSource[] _diedSound;
+
+    private float _betweenDie = 1f;
 
     private IDamageable _creature;
     private Rigidbody _rigidbody;
@@ -30,10 +33,12 @@ public class EnemyView : MonoBehaviour
 
     private void OnTakeDamage(int damage)
     {
-        DamageText.Create(transform.position, damage);
+        _damageText.Create(transform.position, damage);
+        _takeDamageSound.Play();
     }
     public void OnDie()
     {
+        PlayRandomDiedSound();
         StartCoroutine(ApplyForced());
     }
 
@@ -43,5 +48,12 @@ public class EnemyView : MonoBehaviour
         _rigidbody.AddForce(new Vector3(2f, 6f, 6f) * 20);
         yield return new WaitForSeconds(_betweenDie);
         gameObject.SetActive(false);
+    }
+
+    private void PlayRandomDiedSound()
+    {
+        int index = Random.Range(0, _diedSound.Length);
+        Debug.Log(index);
+        _diedSound[index].Play();
     }
 }

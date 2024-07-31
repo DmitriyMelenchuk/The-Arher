@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +6,7 @@ public class ShopPotionView : MonoBehaviour
     [SerializeField] private ShopPotion _shopPotion;
     [SerializeField] private TMP_Text _healthPotionText;
     [SerializeField] private TMP_Text _damagePotionText;
+
 
     private void OnEnable()
     {

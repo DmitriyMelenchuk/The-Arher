@@ -1,10 +1,14 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Obstacle))]
+[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(MeshRenderer))]
+[RequireComponent(typeof(CanvasGroup))]
 public class ObstacleView : MonoBehaviour
 {
     [SerializeField] private DamageTextSpawner _textSpawner;
+    [SerializeField] private AudioSource _takeDamageSound;
 
     private Obstacle _obstacle;
     private Collider _collider;
@@ -39,6 +43,7 @@ public class ObstacleView : MonoBehaviour
 
     private void OnTakedDamage(int damage)
     {
+        _takeDamageSound.Play();
         _textSpawner.Create(transform.position, damage);
         _canvasGroup.alpha = 1;
     }

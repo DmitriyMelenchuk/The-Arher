@@ -7,7 +7,9 @@ public class NextLevelScreen : Screen
     [SerializeField] private Button _nextLevelButton;
     [SerializeField] private Button _mainMenuButton;
     [SerializeField] private Timer _timer;
- 
+    [SerializeField] private AudioSource _nextLevelSound;
+    [SerializeField] private AudioSource _backgroundSound;
+
     public event Action NextLevelButtonClick;
     public event Action MainMenuButtonClick;
 
@@ -21,6 +23,8 @@ public class NextLevelScreen : Screen
 
     public override void Open()
     {
+        _backgroundSound.Pause();
+        _nextLevelSound.Play();
         CanvasGroup.alpha = 1;
         _nextLevelButton.interactable = true;
         _mainMenuButton.interactable = true;

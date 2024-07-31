@@ -10,6 +10,7 @@ public class ShopPotion : MonoBehaviour
 
     [SerializeField] private ShopScreen _shopScreen;
     [SerializeField] private MoneyWallet _moneyWallet;
+    [SerializeField] private AudioSource _buySound;
 
     public event Action<int> HealthPotionCountChanged;
     public event Action<int> DamagePotionCountChanged;
@@ -35,11 +36,13 @@ public class ShopPotion : MonoBehaviour
     private void OnHealthPotionButtonClick()
     {
         SetValuePotion(_keyHealthPotion, HealthPotionCountChanged);
+        _buySound.Play();
     }
 
     private void OnDamagePotionButtonClick()
     {
         SetValuePotion(_keyDamagePotion, DamagePotionCountChanged);
+        _buySound.Play();
     }
 
     private void SetValuePotion(string keyPotion, Action<int> action)
@@ -47,6 +50,7 @@ public class ShopPotion : MonoBehaviour
         if (_moneyWallet.Money >= _pricePotion)
         {
             PlayerPrefs.SetInt(keyPotion, PlayerPrefs.GetInt(keyPotion) + _count);
+            _moneyWallet.Remove(_pricePotion);
             action?.Invoke(PlayerPrefs.GetInt(keyPotion));
         } 
     }

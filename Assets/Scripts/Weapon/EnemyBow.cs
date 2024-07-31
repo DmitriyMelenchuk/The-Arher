@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyBow : MonoBehaviour, IWeapon
@@ -12,6 +13,8 @@ public class EnemyBow : MonoBehaviour, IWeapon
 
     private float _minForce = 3;
     private float _maxForce = 7;
+
+    public event Action Shoot;
 
     public void Init(Transform target)
     {
@@ -30,6 +33,7 @@ public class EnemyBow : MonoBehaviour, IWeapon
         Vector3 heading = _target.position - transform.position;
         float distance = heading.magnitude;
         Vector3 direction = new Vector3(heading.x, heading.y + GetRandomValue(), heading.z) / distance;
+        Shoot?.Invoke();
         _currentArrow.Move(direction, forceShot);
     }
 
@@ -48,7 +52,7 @@ public class EnemyBow : MonoBehaviour, IWeapon
 
     private float GetRandomValue()
     {
-        float value = Random.Range(_minForce, _maxForce);
+        float value = UnityEngine.Random.Range(_minForce, _maxForce);
         return value;
     }
 }
