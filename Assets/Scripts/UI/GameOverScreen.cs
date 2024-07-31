@@ -6,6 +6,8 @@ public class GameOverScreen : Screen
 {
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _mainMenuButton;
+    [SerializeField] private AudioSource _gameOverSound;
+    [SerializeField] private AudioSource _backgroundSound;
 
     public event Action RestartButtonClick;
     public event Action MainMenuButtonClick;
@@ -20,6 +22,8 @@ public class GameOverScreen : Screen
 
     public override void Open()
     {
+        _backgroundSound.Pause();
+        _gameOverSound.Play();
         CanvasGroup.alpha = 1;
         _restartButton.interactable = true;
         _mainMenuButton.interactable = true;

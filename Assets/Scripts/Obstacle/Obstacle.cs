@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class Obstacle : MonoBehaviour, IDamageable
 {
     [SerializeField] private DamageTextSpawner _textSpawner;
+
     [SerializeField] private int _health;
 
     private int _startHealth;

@@ -6,10 +6,12 @@ public class PauseScreen : Screen
 {
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _restartButton;
+    [SerializeField] private Button _settingButton;
     [SerializeField] private Button _exitButton;
 
     public event Action PlayButtonClick;
     public event Action RestartButtonClick;
+    public event Action SettingButtonClick;
     public event Action ExitButtonClick;
 
     public override void Close()
@@ -34,6 +36,7 @@ public class PauseScreen : Screen
     {
         _playButton.onClick.AddListener(OnPlayButtonClick);
         _restartButton.onClick.AddListener(OnRestartButtonClick);
+        _settingButton.onClick.AddListener(OnSettingButtonClick);
         _exitButton.onClick.AddListener(OnExitButtonClick);
     }
 
@@ -41,7 +44,13 @@ public class PauseScreen : Screen
     {
         _playButton.onClick.RemoveListener(OnPlayButtonClick);
         _restartButton.onClick.RemoveListener(OnRestartButtonClick);
+        _settingButton.onClick.RemoveListener(OnSettingButtonClick);
         _exitButton.onClick.RemoveListener(OnExitButtonClick);
+    }
+
+    private void OnSettingButtonClick()
+    {
+        SettingButtonClick?.Invoke();
     }
 
     private void OnPlayButtonClick()

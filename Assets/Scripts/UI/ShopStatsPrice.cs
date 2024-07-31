@@ -16,6 +16,7 @@ public class ShopStatsPrice : MonoBehaviour
 
     [SerializeField] private ShopScreen _shopScreen;
     [SerializeField] private MoneyWallet _moneyWallet;
+    [SerializeField] private AudioSource _buySound;
 
     public int Damage => PlayerPrefs.GetInt(_keyDamage);
     public int Health => PlayerPrefs.GetInt(_keyHealth);
@@ -65,6 +66,7 @@ public class ShopStatsPrice : MonoBehaviour
     {
         CalculatePriceStats(CurrentLevelAdvanceHealth, CurrentPriceHealth, _keyPriceHealth, _keyLevelAdvanceHealth);
         SetMaxHealth(_playerValueStats);
+        _buySound.Play();
         LevelHealthChanged?.Invoke(CurrentLevelAdvanceHealth.ToString() + "/10");
         PriceHealthChanged?.Invoke(CurrentPriceHealth);
     }
@@ -73,6 +75,7 @@ public class ShopStatsPrice : MonoBehaviour
     {
         CalculatePriceStats(CurrentLevelAdvanceDamage, CurrentPriceDamage, _keyPriceDamage, _keyLevelAdvanceDamage);
         SetMaxDamage(_playerValueStats);
+        _buySound.Play();
         LevelDamageChanged?.Invoke(CurrentLevelAdvanceDamage.ToString() + "/10");
         PriceDamageChanged?.Invoke(CurrentPriceDamage);
     }

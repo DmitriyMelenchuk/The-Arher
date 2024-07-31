@@ -18,8 +18,6 @@ public class StarsForLevelView : MonoBehaviour
         {
             string starsKey = "Level" + (i + OneStar);
 
-            Debug.Log(starsKey);
-            Debug.Log(PlayerPrefs.GetInt(starsKey));
             Image[] images = new Image[buttons[i].transform.childCount];
 
             for (int j = 0; j < images.Length; j++)

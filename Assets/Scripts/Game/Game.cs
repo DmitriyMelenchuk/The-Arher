@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
     [SerializeField] private PauseScreen _pauseScreen;
     [SerializeField] private GameOverScreen _gameOverScreen;
     [SerializeField] private NextLevelScreen _nextLevelScreen;
+    [SerializeField] private SettingMenuScreen _settingMenuScreen;
     [SerializeField] private MoneyWallet _moneyCounter;
     [SerializeField] private Player _player;
     [SerializeField] private EnemyCounter _enemyCounter;
@@ -17,12 +18,14 @@ public class Game : MonoBehaviour
     {
         _pauseScreen.RestartButtonClick += OnRestartButtonClick;
         _pauseScreen.PlayButtonClick += OnPlayButtonClick;
-        _pauseScreen.ExitButtonClick += OnExitButtonClick;
+        _pauseScreen.ExitButtonClick += OnExitMainMenuButtonClick;
+        _pauseScreen.SettingButtonClick += OnSettingButtonClick;
         _gameScreen.PauseButtonClick += OnPauseButtonClick;
         _gameOverScreen.RestartButtonClick += OnRestartButtonClick;
-        _gameOverScreen.MainMenuButtonClick += OnExitButtonClick;
-        _nextLevelScreen.MainMenuButtonClick += OnExitButtonClick;
+        _gameOverScreen.MainMenuButtonClick += OnExitMainMenuButtonClick;
+        _nextLevelScreen.MainMenuButtonClick += OnExitMainMenuButtonClick;
         _nextLevelScreen.NextLevelButtonClick += OnNextlevelButtonClick;
+        _settingMenuScreen.ExitButtonClick += OnPlayButtonClick;
         _enemyCounter.EnemiesAreOver += OnEnemiesAreOver;
         
     }
@@ -32,6 +35,7 @@ public class Game : MonoBehaviour
         _pauseScreen.Close();
         _gameOverScreen.Close();
         _nextLevelScreen.Close();
+        _settingMenuScreen.Close();
         _player._damageable.Died += OnDied;
     }
 
@@ -39,14 +43,21 @@ public class Game : MonoBehaviour
     {
         _pauseScreen.RestartButtonClick -= OnRestartButtonClick;
         _pauseScreen.PlayButtonClick -= OnPlayButtonClick;
-        _pauseScreen.ExitButtonClick -= OnExitButtonClick;
+        _pauseScreen.ExitButtonClick -= OnExitMainMenuButtonClick;
+        _pauseScreen.SettingButtonClick -= OnSettingButtonClick;
         _gameScreen.PauseButtonClick -= OnPauseButtonClick;
         _gameOverScreen.RestartButtonClick -= OnRestartButtonClick;
-        _gameOverScreen.MainMenuButtonClick -= OnExitButtonClick;
-        _nextLevelScreen.MainMenuButtonClick -= OnExitButtonClick;
+        _gameOverScreen.MainMenuButtonClick -= OnExitMainMenuButtonClick;
+        _nextLevelScreen.MainMenuButtonClick -= OnExitMainMenuButtonClick;
         _nextLevelScreen.NextLevelButtonClick -= OnNextlevelButtonClick;
+        _settingMenuScreen.ExitButtonClick -= OnPlayButtonClick;
         _enemyCounter.EnemiesAreOver -= OnEnemiesAreOver;
         _player._damageable.Died -= OnDied;
+    }
+
+    private void OnSettingButtonClick()
+    {
+        _settingMenuScreen.Open();
     }
 
     private void OnEnemiesAreOver()
@@ -83,7 +94,7 @@ public class Game : MonoBehaviour
         CloseScreen();
     }
 
-    private void OnExitButtonClick()
+    private void OnExitMainMenuButtonClick()
     {
         SceneManager.LoadScene(0);
     }

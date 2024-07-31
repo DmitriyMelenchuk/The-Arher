@@ -13,9 +13,10 @@ public class StarsForLevelGameView : MonoBehaviour
         _starsForLevel.ChangedCountStars += OnChangedCountStars;
     }
 
-    private void Start()
+    private void Awake()
     {
         _images = GetComponentsInChildren<Image>();
+        
     }
 
     private void OnDisable()
@@ -26,8 +27,6 @@ public class StarsForLevelGameView : MonoBehaviour
     private void OnChangedCountStars(int count)
     {
         for (int i = 0; i < count; i++)
-        {
             _images[i].sprite = _sprite;
-        }
     }
 }

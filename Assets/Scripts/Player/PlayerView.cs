@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour
 {
     [SerializeField] protected DamageTextSpawner DamageText;
+    [SerializeField] private AudioSource[] _damageSounds;
 
     private IDamageable _damageable;
 
@@ -27,6 +28,13 @@ public class PlayerView : MonoBehaviour
 
     private void OnTakeDamage(int damage)
     {
+        PlayRandomDamageSound();
         DamageText.Create(transform.position, damage);
+    }
+
+    private void PlayRandomDamageSound()
+    {
+        int index = Random.Range(0, _damageSounds.Length);
+        _damageSounds[index].Play();
     }
 }
