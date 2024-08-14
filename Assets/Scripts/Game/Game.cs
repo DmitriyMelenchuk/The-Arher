@@ -17,7 +17,7 @@ public class Game : MonoBehaviour
     private void OnEnable()
     {
         _pauseScreen.RestartButtonClick += OnRestartButtonClick;
-        _pauseScreen.PlayButtonClick += OnPlayButtonClick;
+        _pauseScreen.PlayButtonClick += OnExitButtonClick;
         _pauseScreen.ExitButtonClick += OnExitMainMenuButtonClick;
         _pauseScreen.SettingButtonClick += OnSettingButtonClick;
         _gameScreen.PauseButtonClick += OnPauseButtonClick;
@@ -25,7 +25,7 @@ public class Game : MonoBehaviour
         _gameOverScreen.MainMenuButtonClick += OnExitMainMenuButtonClick;
         _nextLevelScreen.MainMenuButtonClick += OnExitMainMenuButtonClick;
         _nextLevelScreen.NextLevelButtonClick += OnNextlevelButtonClick;
-        _settingMenuScreen.ExitButtonClick += OnPlayButtonClick;
+        _settingMenuScreen.ExitButtonClick += OnSettingClose;
         _enemyCounter.EnemiesAreOver += OnEnemiesAreOver;
         
     }
@@ -42,7 +42,7 @@ public class Game : MonoBehaviour
     private void OnDisable()
     {
         _pauseScreen.RestartButtonClick -= OnRestartButtonClick;
-        _pauseScreen.PlayButtonClick -= OnPlayButtonClick;
+        _pauseScreen.PlayButtonClick -= OnExitButtonClick;
         _pauseScreen.ExitButtonClick -= OnExitMainMenuButtonClick;
         _pauseScreen.SettingButtonClick -= OnSettingButtonClick;
         _gameScreen.PauseButtonClick -= OnPauseButtonClick;
@@ -50,7 +50,7 @@ public class Game : MonoBehaviour
         _gameOverScreen.MainMenuButtonClick -= OnExitMainMenuButtonClick;
         _nextLevelScreen.MainMenuButtonClick -= OnExitMainMenuButtonClick;
         _nextLevelScreen.NextLevelButtonClick -= OnNextlevelButtonClick;
-        _settingMenuScreen.ExitButtonClick -= OnPlayButtonClick;
+        _settingMenuScreen.ExitButtonClick -= OnSettingClose;
         _enemyCounter.EnemiesAreOver -= OnEnemiesAreOver;
         _player._damageable.Died -= OnDied;
     }
@@ -89,7 +89,12 @@ public class Game : MonoBehaviour
         CloseScreen();
     }
 
-    private void OnPlayButtonClick()
+    private void OnSettingClose()
+    {
+        _settingMenuScreen.Close();
+    }
+
+    private void OnExitButtonClick()
     {
         CloseScreen();
     }

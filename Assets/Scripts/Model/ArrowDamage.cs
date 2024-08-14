@@ -17,6 +17,11 @@ public class ArrowDamage : MonoBehaviour
             target.TakeDamage(_arrow.Damage);
             gameObject.SetActive(false);
         }
+        if (collision.gameObject.TryGetComponent(out Obstacle obstacle))
+        {
+            obstacle.TakeDamage(_arrow.Damage);
+            gameObject.SetActive(false);
+        }
     }
 }
 

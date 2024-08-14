@@ -11,6 +11,6 @@ public class ObstacleHealthBar : Bar
 
     protected override IDamageable Init(IDamageable damageable)
     {
-        return GetComponentInParent<Obstacle>();
+        return GetComponentInParent<Obstacle>().IDamageable;
     }
 }
