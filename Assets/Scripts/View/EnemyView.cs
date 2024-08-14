@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class EnemyView : MonoBehaviour
 {
+    private const string AnimatorIsDead = "IsDead";
+
     [SerializeField] private DamageTextSpawner _damageText;
     [SerializeField] private AudioSource _takeDamageSound;
     [SerializeField] private AudioSource[] _diedSound;
@@ -11,11 +13,13 @@ public class EnemyView : MonoBehaviour
 
     private IDamageable _creature;
     private Rigidbody _rigidbody;
+    private Animator _animator;
 
     private void Awake()
     {
         _creature = GetComponent<Enemy>()._damageable;
         _rigidbody = GetComponent<Rigidbody>();
+        _animator = GetComponent<Animator>();
         _rigidbody.isKinematic = true;
     }
    
@@ -38,6 +42,7 @@ public class EnemyView : MonoBehaviour
     }
     public void OnDie()
     {
+        _animator.SetBool(AnimatorIsDead, true);
         PlayRandomDiedSound();
         StartCoroutine(ApplyForced());
     }
@@ -45,7 +50,7 @@ public class EnemyView : MonoBehaviour
     private IEnumerator ApplyForced()
     {
         _rigidbody.isKinematic = false;
-        _rigidbody.AddForce(new Vector3(2f, 6f, 6f) * 20);
+        _rigidbody.AddForce(new Vector3(6f, 6f, 6f) * 20);
         yield return new WaitForSeconds(_betweenDie);
         gameObject.SetActive(false);
     }
@@ -53,7 +58,6 @@ public class EnemyView : MonoBehaviour
     private void PlayRandomDiedSound()
     {
         int index = Random.Range(0, _diedSound.Length);
-        Debug.Log(index);
         _diedSound[index].Play();
     }
 }

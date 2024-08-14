@@ -19,6 +19,9 @@ public class StarsForLevel : MonoBehaviour
     [SerializeField] private EnemyCounter _enemyCounter;
 
     public event Action<int> ChangedCountStars;
+    public EnemyCounter EnemyCounter => _enemyCounter;
+    public int TimeForTwoStar => _timeForTwoStar;
+    public int TimeForThreeStar => _timeForThreeStar;
 
     private void OnEnable()
     {

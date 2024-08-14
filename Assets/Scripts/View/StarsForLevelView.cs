@@ -25,20 +25,6 @@ public class StarsForLevelView : MonoBehaviour
 
             if (PlayerPrefs.HasKey(starsKey))
             {
-                //switch (PlayerPrefs.GetInt(starsKey))
-                //{
-                //    case OneStar:
-                //        SetStarsByIndex(images, OneStar);
-                //        break;
-                //    case TwoStar:
-                //        SetStarsByIndex(images, TwoStar);
-                //        break;
-                //    case ThreeStar:
-                //        SetStarsByIndex(images, ThreeStar);
-                //        break;
-                //    default:
-                //        break;
-                //}
                 if (PlayerPrefs.GetInt(starsKey) == OneStar)
                     SetStarsByIndex(images, OneStar);
                 

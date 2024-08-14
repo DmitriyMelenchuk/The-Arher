@@ -1,43 +1,56 @@
 using System;
 using UnityEngine;
 
-public abstract class Obstacle : MonoBehaviour, IDamageable
+public abstract class Obstacle : MonoBehaviour
 {
-    [SerializeField] private DamageTextSpawner _textSpawner;
+    private IDamageable _damageable;
+    private IMovable _movable;
 
-    [SerializeField] private int _health;
-
-    private int _startHealth;
+    public IDamageable IDamageable => _damageable;
+    public IMovable IMovable => _movable;
 
     public event Action Died;
-    public event Action<int> ChangedHealth;
     public event Action<int> TakedDamage;
-
-    public int Health => _health;
-
+   
+    protected void Init(IDamageable damageable, IMovable movable)
+    {
+        _damageable = damageable;
+        _movable = movable;
+    }
     private void Start()
     {
         Move();
-        _startHealth = _health;
     }
 
-    public void Reset()
+    private void OnEnable()
     {
-        _health = _startHealth;
+        IDamageable.TakedDamage += OnTakeDamage;
+        IDamageable.Died += OnDied;
     }
 
-    protected virtual void Move() { }
+    private void OnDisable()
+    {
+        IDamageable.TakedDamage -= OnTakeDamage;
+        IDamageable.Died -= OnDied;
+    }
+
+    private void OnTakeDamage(int damage)
+    {
+        TakedDamage?.Invoke(damage);
+    }
+
+    private void OnDied()
+    {
+        Died?.Invoke();
+    }
 
     public void TakeDamage(int damage)
     {
-        _health -= damage;
-        TakedDamage?.Invoke(damage);
-        ChangedHealth?.Invoke(_health);
+        _damageable.TakeDamage(damage);
+    }
 
-        if (_health <= 0)
-        {
-            _health = 0;
-            Died?.Invoke();
-        }
+    private void Move()
+    {
+        _movable.Move();
     }
 }
