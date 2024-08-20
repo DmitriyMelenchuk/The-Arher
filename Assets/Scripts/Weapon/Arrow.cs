@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 
 [RequireComponent(typeof(Rigidbody))]
@@ -6,6 +8,9 @@ public class Arrow : MonoBehaviour
 {
     private Rigidbody _rigidbody;
     private Transform _startParent;
+    private float _moveSpeed = 5f;
+    private bool _isMovingToHand;
+    private Transform _target;
 
     public int Damage { get; private set; }
 

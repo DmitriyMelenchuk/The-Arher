@@ -22,9 +22,13 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (Time.timeScale == 0)
             return;
+        
 
         if (_playerShoting.IsStartShoting == true)
+        {
             _playerHand.Rotate(_playerInput.MousePosition);
+        }
+            
     }
 
     public void Init(PlayerInput playerInput, PlayerHand playerHand, PlayerShoting playerShoting)

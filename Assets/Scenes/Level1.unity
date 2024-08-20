@@ -1326,7 +1326,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 295079524}
-  m_LocalRotation: {x: -0.19132599, y: 0.5592928, z: -0.019054327, w: 0.806364}
+  m_LocalRotation: {x: -0.19111188, y: 0.5593657, z: -0.018745266, w: 0.8063715}
   m_LocalPosition: {x: -0.00000004284084, y: 0.19866185, z: 0.0000000433065}
   m_LocalScale: {x: 1, y: 1, z: 1.0000001}
   m_ConstrainProportionsScale: 0
@@ -1336,7 +1336,7 @@ Transform:
   - {fileID: 294720010}
   m_Father: {fileID: 294720084}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -16.693, y: 71.674, z: -14.76}
 --- !u!4 &294720070
 Transform:
   m_ObjectHideFlags: 0
@@ -2178,7 +2178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerShoting: {fileID: 295079435}
-  _weapon: {fileID: 996209713}
+  _weaponTransform: {fileID: 1398828135}
   _shotingTrajectory: {fileID: 1573285570}
 --- !u!1 &295079448
 GameObject:
@@ -2820,8 +2820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0673dcb4723f46048af6bd8c120a6889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 294720068}
-  _speedRotation: 23
+  rotationSpeed: 5
 --- !u!1 &440480145
 GameObject:
   m_ObjectHideFlags: 0
@@ -3541,6 +3540,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &852057446 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6472992476638698781, guid: 0429a48a837a92d4ba22cd2dcd427fd0, type: 3}
+  m_PrefabInstance: {fileID: 7611463208847044347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &852057448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852057446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb1b51a342cc18743a6de2d345c7d33f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3719,6 +3735,7 @@ MonoBehaviour:
   _arrowSpawner: {fileID: 1198891731}
   _player: {fileID: 295079439}
   _audioSource: {fileID: 581127521}
+  _transformTarget: {fileID: 1398828135}
 --- !u!114 &996209714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4326,7 +4343,7 @@ GameObject:
   - component: {fileID: 1398828137}
   - component: {fileID: 1398828136}
   m_Layer: 0
-  m_Name: Model
+  m_Name: WeaponModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4340,7 +4357,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398828134}
   m_LocalRotation: {x: -0.5284257, y: -0.80805117, z: -0.23660892, w: -0.108792484}
-  m_LocalPosition: {x: -0.059, y: 0.101, z: 0.018}
+  m_LocalPosition: {x: -0.059, y: 0.104, z: 0.036}
   m_LocalScale: {x: 30, y: 30, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5957,5 +5974,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6472992476638698781, guid: 0429a48a837a92d4ba22cd2dcd427fd0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 852057448}
   m_SourcePrefab: {fileID: 100100000, guid: 0429a48a837a92d4ba22cd2dcd427fd0, type: 3}

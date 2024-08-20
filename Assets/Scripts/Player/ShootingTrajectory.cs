@@ -3,7 +3,7 @@ using UnityEngine;
 public class ShootingTrajectory : MonoBehaviour
 {
     [SerializeField] private PlayerShoting _playerShoting;
-    [SerializeField] private PlayerBow _weapon;
+    [SerializeField] private Transform _weaponTransform;
     [SerializeField] private RenderTrajectory _shotingTrajectory;
 
     private void OnEnable()
@@ -26,6 +26,6 @@ public class ShootingTrajectory : MonoBehaviour
     private void OnChangedForceShot(float value)
     {
         _shotingTrajectory.Activated();
-        _shotingTrajectory.Draw(_weapon.transform.position, _weapon.transform.right * value);
+        _shotingTrajectory.Draw(_weaponTransform.position, _weaponTransform.right * value);
     }
 }

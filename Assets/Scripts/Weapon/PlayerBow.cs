@@ -6,6 +6,7 @@ public class PlayerBow : MonoBehaviour, IWeapon
     [SerializeField] private ArrowSpawner _arrowSpawner;
     [SerializeField] private Player _player;
     [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private Transform _transformTarget;
 
     private Arrow _currentArrow;
 
@@ -15,7 +16,7 @@ public class PlayerBow : MonoBehaviour, IWeapon
     {
         if (_currentArrow != null)
             if (_currentArrow.enabled == true)
-                _currentArrow.RotateTo(transform.localRotation.z);
+                _currentArrow.RotateTo(_transformTarget.localRotation.z);
     }
 
     public void Shot(float forceShot)
@@ -32,7 +33,7 @@ public class PlayerBow : MonoBehaviour, IWeapon
         if (Time.timeScale != 0)
         {
             _currentArrow = _arrowSpawner.Create();
-            _currentArrow.SetToHand(transform);
+            _currentArrow.SetToHand(_transformTarget);
             _currentArrow.InitDamage(_player.PlayerDamage.Damage);
         }           
     }
