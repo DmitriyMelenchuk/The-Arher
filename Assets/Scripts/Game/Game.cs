@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,9 +11,12 @@ public class Game : MonoBehaviour
     [SerializeField] private GameOverScreen _gameOverScreen;
     [SerializeField] private NextLevelScreen _nextLevelScreen;
     [SerializeField] private SettingMenuScreen _settingMenuScreen;
-    [SerializeField] private MoneyWallet _moneyCounter;
+    [SerializeField] private MoneyWallet _moneyWallet;
     [SerializeField] private Player _player;
     [SerializeField] private EnemyCounter _enemyCounter;
+    [SerializeField] private YandexAds _yandexAds;
+
+    public event Action LevelCompleted;
 
     private void OnEnable()
     {
@@ -26,8 +30,7 @@ public class Game : MonoBehaviour
         _nextLevelScreen.MainMenuButtonClick += OnExitMainMenuButtonClick;
         _nextLevelScreen.NextLevelButtonClick += OnNextlevelButtonClick;
         _settingMenuScreen.ExitButtonClick += OnSettingClose;
-        _enemyCounter.EnemiesAreOver += OnEnemiesAreOver;
-        
+        _enemyCounter.EnemiesAreOver += OnEnemiesAreOver;     
     }
 
     private void Start()
@@ -62,6 +65,7 @@ public class Game : MonoBehaviour
 
     private void OnEnemiesAreOver()
     {
+        //_yandexAds.Show();
         _nextLevelScreen.Open();
         Time.timeScale = 0;
     }
@@ -74,6 +78,7 @@ public class Game : MonoBehaviour
 
     private void OnDied()
     {
+        //_yandexAds.Show();
         _gameOverScreen.Open();
         Time.timeScale = 0;
     }

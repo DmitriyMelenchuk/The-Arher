@@ -23,7 +23,7 @@ public class PlayerBow : MonoBehaviour, IWeapon
     {
         if (Time.timeScale != 0)
         {
-            _currentArrow.Move(transform.right, forceShot);
+            _currentArrow.Move(_transformTarget.right, forceShot);
             _audioSource.Play();
         }  
     }

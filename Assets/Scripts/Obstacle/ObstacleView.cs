@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Linq.Expressions;
 using UnityEngine;
 
 [RequireComponent(typeof(Obstacle))]
@@ -15,14 +14,12 @@ public class ObstacleView : MonoBehaviour
 
     private Obstacle _obstacle;
     private Collider _collider;
-    //private MeshRenderer _meshRenderer;
     private CanvasGroup _canvasGroup;
 
     private void Awake()
     {
         _obstacle = GetComponent<Obstacle>();
         _collider = GetComponent<Collider>();
-        //_meshRenderer = GetComponentInChildren<MeshRenderer>();
         _canvasGroup = GetComponentInChildren<CanvasGroup>();
         _canvasGroup.alpha = 0;
     }
@@ -43,7 +40,6 @@ public class ObstacleView : MonoBehaviour
     {
         _particleSystem.Play();
         StartCoroutine(DelayDeath());
-        
     }
 
     private void OnTakedDamage(int damage)
@@ -59,7 +55,6 @@ public class ObstacleView : MonoBehaviour
         _collider.enabled = false;
         _meshRenderer.enabled = false;
         yield return new WaitForSeconds(1);
-        
         gameObject.SetActive(false);
     }
 }

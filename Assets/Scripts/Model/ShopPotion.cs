@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 public class ShopPotion : MonoBehaviour
 {
@@ -47,11 +48,10 @@ public class ShopPotion : MonoBehaviour
 
     private void SetValuePotion(string keyPotion, Action<int> action)
     {
-        if (_moneyWallet.Money >= _pricePotion)
+        if (_moneyWallet.TryRemove(_pricePotion) == true)
         {
             PlayerPrefs.SetInt(keyPotion, PlayerPrefs.GetInt(keyPotion) + _count);
-            _moneyWallet.Remove(_pricePotion);
             action?.Invoke(PlayerPrefs.GetInt(keyPotion));
-        } 
+        }
     }
 }

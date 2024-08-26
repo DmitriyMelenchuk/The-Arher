@@ -1,26 +1,39 @@
-using System.Collections;
 using UnityEngine;
 using Agava.YandexGames;
+using UnityEngine.UI;
 
 public class YandexAds : MonoBehaviour
 {
-    private void Awake()
+    private const int Reward = 10;
+
+    [SerializeField] private MoneyWallet _moneyWallet;
+
+    public void OnShowWithReward() =>
+        Agava.YandexGames.VideoAd.Show(OnOpenCallback, OnRewardCallback, OnCloseCallback);
+
+    public void Show()=> 
+        Agava.YandexGames.InterstitialAd.Show(OnOpenCallback, OnCloseCallback, null);
+
+    private void OnOpenCallback()
     {
-        YandexGamesSdk.CallbackLogging = true;
+        Time.timeScale = 0;
+        AudioListener.volume = 0f;
     }
 
-    private IEnumerator Start()
+    private void OnRewardCallback()
     {
-#if !UNITY_WEBGL || UNITY_EDITOR
-        yield break;
-#endif
-
-        yield return YandexGamesSdk.Initialize();
-        OnShowVideo();
+        _moneyWallet.Add(Reward);
     }
 
-    private void OnShowVideo()
+    private void OnCloseCallback()
     {
-        VideoAd.Show();
+        Time.timeScale = 1;
+        AudioListener.volume = 1f;
+    }
+
+    private void OnCloseCallback(bool result)
+    {
+        Time.timeScale = 1;
+        AudioListener.volume = 1f;
     }
 }
