@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 public class PlayerHealth : IDamageable
 {

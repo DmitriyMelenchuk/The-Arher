@@ -8,9 +8,6 @@ public class Arrow : MonoBehaviour
 {
     private Rigidbody _rigidbody;
     private Transform _startParent;
-    private float _moveSpeed = 5f;
-    private bool _isMovingToHand;
-    private Transform _target;
 
     public int Damage { get; private set; }
 
@@ -19,7 +16,7 @@ public class Arrow : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _startParent = gameObject.transform.parent;
+        _startParent = gameObject.transform.parent; 
     }
 
     private void OnEnable()

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 public class ShopStatsPrice : MonoBehaviour
 {
@@ -86,10 +87,8 @@ public class ShopStatsPrice : MonoBehaviour
 
         if (currentLevelAdvance < _maxLevelAdvance)
         {
-            if (_moneyWallet.Money >= currentLevelAdvance)
-            {                   
-                _moneyWallet.Remove(currentPrice);
-
+            if (_moneyWallet.TryRemove(currentPrice) == true)
+            {
                 if (currentLevelAdvance >= _valueAdvance)
                     PlayerPrefs.SetInt(keyPrice, currentPrice + _multiplierPrice);
 

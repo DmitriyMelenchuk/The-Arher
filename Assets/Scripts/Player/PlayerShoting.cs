@@ -36,7 +36,7 @@ public class PlayerShoting : MonoBehaviour
             return;
 
         if (IsStartShoting == true)
-        {           
+        {
             if (_forceShot <= _maxForceShot)
                 _forceShot += _maxForceShot * Time.deltaTime;
             ChangedForceShot?.Invoke(_forceShot);

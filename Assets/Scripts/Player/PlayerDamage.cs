@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 public class PlayerDamage
 {

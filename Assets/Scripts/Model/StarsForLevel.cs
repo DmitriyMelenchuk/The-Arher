@@ -54,7 +54,6 @@ public class StarsForLevel : MonoBehaviour
                 SetStars(TwoStar);
         }
                 
-
         if (_timer.RunnigTime <= _timeForThreeStar)
         {
             _currentCountStars = ThreeStar;
