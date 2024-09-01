@@ -1,6 +1,5 @@
 using UnityEngine;
 using Agava.YandexGames;
-using UnityEngine.UI;
 
 public class YandexAds : MonoBehaviour
 {

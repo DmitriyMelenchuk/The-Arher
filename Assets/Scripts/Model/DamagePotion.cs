@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 public class DamagePotion : MonoBehaviour, IPotion
 {
@@ -22,6 +23,7 @@ public class DamagePotion : MonoBehaviour, IPotion
         {
             StartCoroutine(_player.PlayerDamage.AddDamageForTime(_durationTime, _percentAdvanceDamage));
             PlayerPrefs.SetInt(_keyPotionCount, PlayerPrefs.GetInt(_keyPotionCount) - _valuePotion);
+            PlayerPrefs.Save();
             ValueChanged?.Invoke(PlayerPrefs.GetInt(_keyPotionCount));
         }
     }

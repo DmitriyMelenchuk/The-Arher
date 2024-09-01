@@ -14,7 +14,6 @@ public class SDKInitializer : MonoBehaviour
 #if !UNITY_WEBGL || UNITY_EDITOR
         yield break;
 #endif
-
         yield return YandexGamesSdk.Initialize();
 
         YandexGamesSdk.GameReady();

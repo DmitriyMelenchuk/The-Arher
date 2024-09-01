@@ -28,6 +28,6 @@ public class Reward : MonoBehaviour
 
     private void OnDied()
     {
-        _moneyWallet.Add(_count);
+        //_moneyWallet.Add(_count);
     }
 }

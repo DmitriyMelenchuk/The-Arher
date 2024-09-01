@@ -1,3 +1,4 @@
+using Agava.YandexGames;
 using System.Collections;
 using UnityEngine;
 using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
@@ -13,7 +14,11 @@ public class PlayerDamage
    public PlayerDamage(int damage)
    {
        if (Damage < damage)
+       {
            PlayerPrefs.SetInt(_keyDamage, damage);
+           //PlayerPrefs.Save();
+       }
+           
    }
 
     public IEnumerator AddDamageForTime(float time, float value)
@@ -33,6 +38,7 @@ public class PlayerDamage
             }
 
             PlayerPrefs.SetInt(_keyDamage, startDamage);
+            //PlayerPrefs.Save();
             _isActiveAddDamageForTime = false;
             runnigTime = 0;
         }

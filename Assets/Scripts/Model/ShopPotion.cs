@@ -51,6 +51,7 @@ public class ShopPotion : MonoBehaviour
         if (_moneyWallet.TryRemove(_pricePotion) == true)
         {
             PlayerPrefs.SetInt(keyPotion, PlayerPrefs.GetInt(keyPotion) + _count);
+            PlayerPrefs.Save();
             action?.Invoke(PlayerPrefs.GetInt(keyPotion));
         }
     }

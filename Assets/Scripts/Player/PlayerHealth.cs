@@ -16,7 +16,11 @@ public class PlayerHealth : IDamageable
     public PlayerHealth(int value)
     {
         if (Health < value)
+        {
             PlayerPrefs.SetInt(_keyHealth, value);
+            //PlayerPrefs.Save();
+        }
+            
         
         _currentHealth = Health;
     }

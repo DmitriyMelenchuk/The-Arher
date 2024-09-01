@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
+using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
 public class HealthPotion : MonoBehaviour, IPotion
 {
     private const string _keyPotionCount = "healthPotionCount";
-    private const int _valuePotion = 1;
+    private const int _count = 1;
 
     [SerializeField] private Player _player;
     [SerializeField] private float _percentAddHealth;
@@ -23,7 +24,8 @@ public class HealthPotion : MonoBehaviour, IPotion
             if (PlayerPrefs.GetInt(_keyPotionCount) > 0)
             {
                 playerHealth.HealHealth(_percentAddHealth);
-                PlayerPrefs.SetInt(_keyPotionCount, PlayerPrefs.GetInt(_keyPotionCount) - _valuePotion);
+                PlayerPrefs.SetInt(_keyPotionCount, PlayerPrefs.GetInt(_keyPotionCount) - _count);
+                PlayerPrefs.Save();
                 ValueChanged?.Invoke(PlayerPrefs.GetInt(_keyPotionCount));
             }
         }

@@ -53,6 +53,7 @@ public class ShopStatsPrice : MonoBehaviour
         if (CurrentPriceHealth == 0)
             PlayerPrefs.SetInt(_keyPriceHealth, _valueAdvance);
 
+        PlayerPrefs.Save();
         PriceDamageChanged?.Invoke(CurrentPriceDamage);
         PriceHealthChanged?.Invoke(CurrentPriceHealth);
     }
@@ -96,6 +97,7 @@ public class ShopStatsPrice : MonoBehaviour
                     PlayerPrefs.SetInt(keyPrice, currentPrice + _valueAdvance);
 
                 PlayerPrefs.SetInt(keyLevelAdvance, currentLevelAdvance + index);
+                PlayerPrefs.Save();
             }
         }
     }
@@ -103,7 +105,11 @@ public class ShopStatsPrice : MonoBehaviour
     public void SetMaxDamage(int value)
     {
         if (value > 0)
+        {
             PlayerPrefs.SetInt(_keyDamage, Damage + value);
+            PlayerPrefs.Save();
+        }
+            
     }
 
     public void SetMaxHealth(int value)
@@ -111,6 +117,7 @@ public class ShopStatsPrice : MonoBehaviour
         if (value > 0)
         {
             PlayerPrefs.SetInt(_keyHealth, Health + value);
+            PlayerPrefs.Save();
         }
     }
 }
